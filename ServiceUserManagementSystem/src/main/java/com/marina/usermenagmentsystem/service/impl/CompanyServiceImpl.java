@@ -8,7 +8,7 @@ package com.marina.usermenagmentsystem.service.impl;
 import com.marina.usermenagmentsystem.data.repository.CompanyRepository;
 import com.marina.usermenagmentsystem.service.CompanyService;
 import com.marina.usermenagmentsystem.service.mapper.CompanyMapper;
-import com.marina.usermenagmentsystem.service.mapper.CycleAvoidingMappingContext;
+import com.marina.usermenagmentsystem.service.mapper.context.CycleAvoidingMappingContext;
 import com.marina.usermenagmentsystem.service.model.CompanyDTO;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -30,7 +30,7 @@
         <link href="/usermgmt/resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css"/>
         <link href="/usermgmt/resources/css/sb-admin.css" rel="stylesheet" type="text/css"/>
         <link href="/usermgmt/resources/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css"/>
-        <!--<link href="/usermgmt/resources/css/style.css" rel="stylesheet" type="text/css"/>-->
+        <link href="/usermgmt/resources/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
 
     <body id="page-top">
@@ -93,6 +93,12 @@
                 startView: 2,
                 clearBtn: true,
                 daysOfWeekHighlighted: "0,6"
+            });
+            $('#customFile').on('change', function () {
+                //get the file name
+                var fileName = $(this).val();
+                //replace the "Choose a file" label
+                $('#file-label').html(fileName);
             });
         </script>
     </body>

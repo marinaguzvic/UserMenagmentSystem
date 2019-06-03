@@ -25,6 +25,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import com.marina.usermenagmentsystem.service.PersonService;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
 /**
  *
@@ -84,4 +86,16 @@ public class ApplicationConfig {
         rb.setBasenames(new String[]{"messages/validation"});
         return rb;
     }
+
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(1000000);
+        return multipartResolver;
+    }
+
+//    @Bean
+//    public StandardServletMultipartResolver multipartResolver() {
+//        return new StandardServletMultipartResolver();
+//    }
 }

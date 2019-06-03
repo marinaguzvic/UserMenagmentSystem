@@ -50,7 +50,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(value = "/users")
 public class UserController {
 
-    private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private PersonService personService;

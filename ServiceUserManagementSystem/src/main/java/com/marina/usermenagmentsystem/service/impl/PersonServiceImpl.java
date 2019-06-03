@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.marina.usermenagmentsystem.service.mapper.PersonMapper;
 import com.marina.usermenagmentsystem.service.PersonService;
-import com.marina.usermenagmentsystem.service.mapper.CycleAvoidingMappingContext;
+import com.marina.usermenagmentsystem.service.mapper.context.CycleAvoidingMappingContext;
 
 /**
  *

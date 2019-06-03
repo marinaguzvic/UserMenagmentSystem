@@ -7,7 +7,7 @@ package com.marina.usermenagmentsystem.service.impl;
 
 import com.marina.usermenagmentsystem.data.repository.PositionRepository;
 import com.marina.usermenagmentsystem.service.PositionService;
-import com.marina.usermenagmentsystem.service.mapper.CycleAvoidingMappingContext;
+import com.marina.usermenagmentsystem.service.mapper.context.CycleAvoidingMappingContext;
 import com.marina.usermenagmentsystem.service.mapper.PositionMapper;
 import com.marina.usermenagmentsystem.service.model.PositionDTO;
 import java.util.List;

@@ -5,9 +5,12 @@
  */
 package com.marina.usermenagmentsystem.service.impl;
 
+import com.marina.usermenagmentsystem.data.model.TemplateField;
 import com.marina.usermenagmentsystem.data.model.TemplateFieldPK;
 import com.marina.usermenagmentsystem.data.repository.TemplateFieldRepository;
 import com.marina.usermenagmentsystem.service.TemplateFieldService;
+import com.marina.usermenagmentsystem.service.mapper.context.CycleAvoidingMappingContext;
+import static com.marina.usermenagmentsystem.service.mapper.context.CycleAvoidingMappingContext.getInstance;
 import com.marina.usermenagmentsystem.service.mapper.TemplateFieldMapper;
 import com.marina.usermenagmentsystem.service.model.TemplateFieldDTO;
 import java.util.List;
@@ -28,13 +31,15 @@ public class TemplateFieldServiceImpl implements TemplateFieldService {
 
     @Override
     public List<TemplateFieldDTO> getAll(Long documentId) {
-        return templateFieldMapper.toDtoModel(templateFieldRepository.findByTemplateFieldPKTemplateIdFk(documentId));
+        List<TemplateField> fields = templateFieldRepository.findByTemplateFieldPKTemplateIdFk(documentId);
+        return templateFieldMapper.toDtoModel(fields, CycleAvoidingMappingContext.getInstance());
     }
 
     @Override
     public TemplateFieldDTO get(Long documentId, Integer id) {
         try {
-            return templateFieldMapper.toDtoModel(templateFieldRepository.findById(new TemplateFieldPK(documentId, id)).get());
+            TemplateField field = templateFieldRepository.findById(new TemplateFieldPK(documentId, id)).get();
+            return templateFieldMapper.toDtoModel(field, CycleAvoidingMappingContext.getInstance());
         } catch (Exception e) {
             return null;
         }
@@ -42,7 +47,8 @@ public class TemplateFieldServiceImpl implements TemplateFieldService {
 
     @Override
     public TemplateFieldDTO update(TemplateFieldDTO document) {
-        return templateFieldMapper.toDtoModel(templateFieldRepository.save(templateFieldMapper.toDataModel(document)));
+        TemplateField field = templateFieldRepository.save(templateFieldMapper.toDataModel(document, CycleAvoidingMappingContext.getInstance()));
+        return templateFieldMapper.toDtoModel(field, CycleAvoidingMappingContext.getInstance());
     }
 
     @Override
@@ -57,7 +63,8 @@ public class TemplateFieldServiceImpl implements TemplateFieldService {
 
     @Override
     public TemplateFieldDTO insert(TemplateFieldDTO document) {
-        return templateFieldMapper.toDtoModel(templateFieldRepository.save(templateFieldMapper.toDataModel(document)));
+        TemplateField field = templateFieldRepository.save(templateFieldMapper.toDataModel(document, CycleAvoidingMappingContext.getInstance()));
+        return templateFieldMapper.toDtoModel(field, CycleAvoidingMappingContext.getInstance());
     }
 
 }

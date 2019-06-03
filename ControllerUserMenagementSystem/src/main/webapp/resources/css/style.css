@@ -8,15 +8,12 @@ and open the template in the editor.
     Author     : MARINA
 */
 
-html,
-body {
-  height: 100%;
-}
-
-#page-content {
-  flex: 1 0 auto;
-}
-
-#sticky-footer {
-  flex-shrink: none;
-}
+    input.transparent-input{
+       background-color:rgba(0,0,0,0) !important;
+       border:none !important;
+    }
+    
+        select.transparent-input{
+       background-color:rgba(0,0,0,0) !important;
+       border:none !important;
+    }

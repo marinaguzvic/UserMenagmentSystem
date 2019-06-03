@@ -5,18 +5,44 @@
  */
 package com.marina.usermenagmentsystem.service.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TemplateDTO {
 
     private Long templateId;
     private String templateName;
-    private String templateType;
-    private byte[] templateStream;
-    private List<TemplateFieldDTO> templateFieldList;
-    private List<DocumentDTO> documentList;
+    private String templateFileType;
+    private byte[] templateFile;
+    private String templateFileName;
+    private List<TemplateFieldDTO> templateFieldList = new ArrayList<>();
 
     public TemplateDTO() {
+        
+    }
+
+    public String getTemplateFileType() {
+        return templateFileType;
+    }
+
+    public void setTemplateFileType(String templateFileType) {
+        this.templateFileType = templateFileType;
+    }
+
+    public byte[] getTemplateFile() {
+        return templateFile;
+    }
+
+    public void setTemplateFile(byte[] templateFile) {
+        this.templateFile = templateFile;
+    }
+
+    public String getTemplateFileName() {
+        return templateFileName;
+    }
+
+    public void setTemplateFileName(String templateFileName) {
+        this.templateFileName = templateFileName;
     }
 
     public TemplateDTO(Long templateId) {
@@ -39,21 +65,6 @@ public class TemplateDTO {
         this.templateName = templateName;
     }
 
-    public String getTemplateType() {
-        return templateType;
-    }
-
-    public void setTemplateType(String templateType) {
-        this.templateType = templateType;
-    }
-
-    public byte[] getTemplateStream() {
-        return templateStream;
-    }
-
-    public void setTemplateStream(byte[] templateStream) {
-        this.templateStream = templateStream;
-    }
 
     public List<TemplateFieldDTO> getTemplateFieldList() {
         return templateFieldList;
@@ -61,14 +72,6 @@ public class TemplateDTO {
 
     public void setTemplateFieldList(List<TemplateFieldDTO> templateFieldList) {
         this.templateFieldList = templateFieldList;
-    }
-
-    public List<DocumentDTO> getDocumentList() {
-        return documentList;
-    }
-
-    public void setDocumentList(List<DocumentDTO> documentList) {
-        this.documentList = documentList;
     }
 
     @Override

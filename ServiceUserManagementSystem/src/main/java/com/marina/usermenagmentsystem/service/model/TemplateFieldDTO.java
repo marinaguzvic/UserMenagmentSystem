@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class TemplateFieldDTO {
 
-    protected Long templateId;
+    protected long templateId;
     protected int templateFieldId;
     private String templateFieldName;
     private String templateFieldType;

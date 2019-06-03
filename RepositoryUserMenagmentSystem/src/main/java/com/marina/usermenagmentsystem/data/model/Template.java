@@ -10,7 +10,10 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,17 +41,19 @@ public class Template implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "template_id")
     private Long templateId;
     @Column(name = "template_name")
     private String templateName;
-    @Column(name = "template_type")
-    private String templateType;
+    @Column(name = "template_file_type")
+    private String templateFileType;
     @Lob
-    @Column(name = "template_stream")
-    private byte[] templateStream;
+    @Column(name = "template_file")
+    private byte[] templateFile;
+    @Column(name = "template_file_name")
+    private String templateFileName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "template")
     private List<TemplateField> templateFieldList;
 
@@ -76,23 +81,30 @@ public class Template implements Serializable {
         this.templateName = templateName;
     }
 
-    public String getTemplateType() {
-        return templateType;
+    public String getTemplateFileType() {
+        return templateFileType;
     }
 
-    public void setTemplateType(String templateType) {
-        this.templateType = templateType;
+    public void setTemplateFileType(String templateFileType) {
+        this.templateFileType = templateFileType;
     }
 
-    public byte[] getTemplateStream() {
-        return templateStream;
+    public byte[] getTemplateFile() {
+        return templateFile;
     }
 
-    public void setTemplateStream(byte[] templateStream) {
-        this.templateStream = templateStream;
+    public void setTemplateFile(byte[] templateFile) {
+        this.templateFile = templateFile;
     }
 
-    @XmlTransient
+    public String getTemplateFileName() {
+        return templateFileName;
+    }
+
+    public void setTemplateFileName(String templateFileName) {
+        this.templateFileName = templateFileName;
+    }
+
     public List<TemplateField> getTemplateFieldList() {
         return templateFieldList;
     }
@@ -126,5 +138,8 @@ public class Template implements Serializable {
     public String toString() {
         return "com.marina.repositoryusermenagmentsystem.data.model.Template[ templateId=" + templateId + " ]";
     }
+
+
+    
     
 }

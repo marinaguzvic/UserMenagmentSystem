@@ -5,6 +5,7 @@
  */
 package com.marina.usermenagmentsystem.service.mapper;
 
+import com.marina.usermenagmentsystem.service.mapper.context.CycleAvoidingMappingContext;
 import com.marina.usermenagmentsystem.data.model.Person;
 import com.marina.usermenagmentsystem.service.model.PersonDTO;
 import java.util.List;

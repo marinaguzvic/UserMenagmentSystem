@@ -30,16 +30,43 @@
         <put-attribute name="buttons" value="" cascade="true" />
     </definition> 
     
-    <!-- Base user definition -->
+    <!-- New user -->
     <definition name="new-person" extends="base-definition">  
         <put-attribute name="title" value="Add new person" />  
         <put-attribute name="body" value="person-body" />  
         <put-attribute name="buttons" value="/WEB-INF/views/tiles/person/saveButtons.jsp" cascade="true" />  
     </definition>   
     
+    <!-- View user -->
     <definition name="view-person" extends="base-definition">  
         <put-attribute name="title" value="View person" />  
         <put-attribute name="body" value="person-body" />  
         <put-attribute name="buttons" value="/WEB-INF/views/tiles/person/viewButtons.jsp" cascade="true" />  
     </definition>
+    
+    <!-- All templates -->
+    <definition name="templates" extends="base-definition">  
+        <put-attribute name="title" value="Templates" />  
+        <put-attribute name="body" value="/WEB-INF/views/pages/templates.jsp" />  
+    </definition>  
+    
+    <!-- Base template definition -->
+    <definition name="template-body" template="/WEB-INF/views/tiles/layouts/templateLayout.jsp">  
+        <put-attribute name="buttons" value="" cascade="true" />
+    </definition> 
+    
+    <!-- New template -->
+    <definition name="new-template" extends="base-definition">  
+        <put-attribute name="title" value="Add new template" />  
+        <put-attribute name="body" value="template-body" />  
+        <put-attribute name="buttons" value="/WEB-INF/views/tiles/documentTemplate/saveButtons.jsp" cascade="true" />  
+    </definition>   
+    
+    <!-- View user -->
+    <definition name="view-template" extends="base-definition">  
+        <put-attribute name="title" value="View template" />  
+        <put-attribute name="body" value="template-body" />  
+        <put-attribute name="buttons" value="/WEB-INF/views/tiles/documentTemplate/viewButtons.jsp" cascade="true" />  
+    </definition>
+ 
 </tiles-definitions>

@@ -32,11 +32,11 @@ public class TemplateFieldPK implements Serializable {
         this.templateFieldId = templateFieldId;
     }
 
-    public long getTemplateIdFk() {
+    public Long getTemplateIdFk() {
         return templateIdFk;
     }
 
-    public void setTemplateIdFk(long templateIdFk) {
+    public void setTemplateIdFk(Long templateIdFk) {
         this.templateIdFk = templateIdFk;
     }
 
@@ -51,7 +51,7 @@ public class TemplateFieldPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) templateIdFk;
+        hash += (Long) templateIdFk;
         hash += (int) templateFieldId;
         return hash;
     }
