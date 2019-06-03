@@ -47,15 +47,19 @@
             <div class="form-group row">
                 <form:label path="template.templateName" for="input-name" class="col-sm-2 col-form-label">Name</form:label>
                     <div class="col-sm-10">
-                    <form:input type="text" path="template.templateName" id="input-id" placeholder="Name" class="form-control"/>
+                    <form:input type="text" path="template.templateName" id="input-id" placeholder="Name" class="form-control ${templateNameVld}"/>
+                    <form:errors path="template.templateName" class="invalid-feedback" element="div"/>
                 </div>
             </div>
             <div class="custom-file">
-                <form:input path="file" type="file" class="custom-file-input" id="customFile"/>
+                <form:input path="file" type="file" class="custom-file-input ${templateFileNameVld}" id="customFile"/>
                 <label class="custom-file-label" for="customFile" id="file-label">${template.template.templateFileName}</label>
                 <form:input type="hidden" path="template.templateFileName"/>
                 <form:input type="hidden" path="template.templateFileType"/>
                 <form:input type="hidden" path="template.templateFile"/>
+                <form:errors path="template.templateFileName" class="invalid-feedback" element="div"/>
+                <form:errors path="template.templateFileType" class="invalid-feedback" element="div"/>
+                <form:errors path="template.templateFile" class="invalid-feedback" element="div"/>
             </div>
             <br><br>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -74,7 +78,9 @@
                             <form:input type="hidden" path="template.templateFieldList[${status.index}].templateFieldId"/>
                             <th scope="row">${field.templateFieldId}</th>
 
-                            <td><form:input path="template.templateFieldList[${status.index}].templateFieldName" class="form-control transparent-input"/></td>
+                            <td><form:input path="template.templateFieldList[${status.index}].templateFieldName" class="form-control transparent-input ${templateFieldNameVld[status.index]}"/>
+                                <form:errors path="template.templateFieldList[${status.index}].templateFieldName" class="invalid-feedback" element="div"/>
+                            </td>
                             <td>
                                 <form:select multiple="single" class="custom-select transparent-input" path="template.templateFieldList[${status.index}].templateFieldType" items="${types}"/>
                             </td>

@@ -86,7 +86,7 @@ public class UserController {
 
     @PostMapping
     @ResponseBody
-    public ModelAndView insert(@ModelAttribute("person") @Validated PersonDTO person, BindingResult result, final RedirectAttributes redirectAttributes) {
+    public ModelAndView insert(@ModelAttribute("person") @Validated PersonDTO person, BindingResult result) {
         List<CompanyDTO> companies = companyService.getAll();
         ModelAndView mv = new ModelAndView("view-person", result.getModel());
         mv.addObject("companies", companies);
@@ -169,13 +169,4 @@ public class UserController {
         }
     }
 
-    private void populateErrorCss(BindingResult result, ModelMap model) {
-        for (String attribute : getListOfAttributes()) {
-            if (result.hasFieldErrors(attribute)) {
-                model.addAttribute(attribute + "Vld", "is-invalid");
-            } else {
-                model.addAttribute(attribute + "Vld", "is-valid");
-            }
-        }
-    }
 }

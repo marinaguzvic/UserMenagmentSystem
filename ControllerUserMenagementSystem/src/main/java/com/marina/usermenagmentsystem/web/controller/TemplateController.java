@@ -13,12 +13,21 @@ import com.marina.usermenagmentsystem.service.model.PersonDTO;
 import com.marina.usermenagmentsystem.service.model.TemplateDTO;
 import com.marina.usermenagmentsystem.service.model.TemplateFieldDTO;
 import com.marina.usermenagmentsystem.web.controller.file.TemplateDTOFileProxy;
+import com.marina.usermenagmentsystem.web.validator.TemplateFormAddFieldValidator;
+import com.marina.usermenagmentsystem.web.validator.TemplateFormSaveValidator;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +49,17 @@ public class TemplateController {
 
     @Autowired
     TemplateFieldService templateFieldService;
+
+    @Autowired
+    TemplateFormSaveValidator templateFormSaveValidator;
+
+    @Autowired
+    TemplateFormAddFieldValidator templateFormAddFieldValidator;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(templateFormSaveValidator, templateFormAddFieldValidator);
+    }
 
     @GetMapping
     public ModelAndView all() {
@@ -75,30 +95,52 @@ public class TemplateController {
     }
 
     @PostMapping
-    public ModelAndView insert(@ModelAttribute("template") TemplateDTOFileProxy templateProxy) throws IOException {
-        ModelAndView mv = new ModelAndView("view-template");
-        List<String> types = getTypes();
+    public ModelAndView insert(@ModelAttribute("template") @Validated(TemplateFormSaveValidator.class) TemplateDTOFileProxy templateProxy, BindingResult result) throws IOException {
+        ModelAndView mv = new ModelAndView("view-template", result.getModel());
         templateProxy.getTemplate().getTemplateFieldList().remove(templateProxy.getTemplate().getTemplateFieldList().size() - 1);
         setFile(templateProxy);
+        List<String> types = getTypes();
+        mv.addObject("types", types);
+        if (result.hasErrors()) {
+            mv.setViewName("new-template");
+            mv.addObject("template", templateProxy);
+            mv.addObject("action", "/usermgmt/templates");
+            populateErrorCss(result, mv, templateProxy.getTemplate().getTemplateFieldList());
+            return mv;
+        } else {
+            mv.addObject("css", "success");
+            mv.addObject("msg", "Person added successfully!");
+        }
+
         templateProxy.setTemplate(templateService.insert(templateProxy.getTemplate()));
         templateProxy.getTemplate().getTemplateFieldList().add(new TemplateFieldDTO(templateProxy.getTemplate().getTemplateId(), generateUpdateId(templateProxy.getTemplate())));
         mv.addObject("template", templateProxy);
-        mv.addObject("types", types);
         mv.addObject("action", "/usermgmt/templates/" + templateProxy.getTemplate().getTemplateId());
         return mv;
     }
 
     @PostMapping(value = "/{id}")
-    public ModelAndView update(@ModelAttribute("template") TemplateDTOFileProxy templateProxy, @PathVariable Long id) throws IOException {
+    public ModelAndView update(@ModelAttribute("template") @Validated(TemplateFormSaveValidator.class) TemplateDTOFileProxy templateProxy, BindingResult result, @PathVariable Long id) throws IOException {
         ModelAndView mv = new ModelAndView("view-template");
-        List<String> types = getTypes();
-        templateProxy.getTemplate().getTemplateFieldList().remove(templateProxy.getTemplate().getTemplateFieldList().size() - 1);
         setFile(templateProxy);
+        List<String> types = getTypes();
+        mv.addObject("types", types);
+        mv.addObject("action", "/usermgmt/templates/" + templateProxy.getTemplate().getTemplateId());
+        if (result.hasErrors()) {
+            mv.setViewName("new-template");
+            mv.addObject("template", templateProxy);
+            mv.addObject("action", "/usermgmt/templates");
+            populateErrorCss(result, mv, templateProxy.getTemplate().getTemplateFieldList());
+            return mv;
+        } else {
+            mv.addObject("css", "success");
+            mv.addObject("msg", "Person updated successfully!");
+        }
+        templateProxy.getTemplate().getTemplateFieldList().remove(templateProxy.getTemplate().getTemplateFieldList().size() - 1);
         templateProxy.setTemplate(templateService.update(templateProxy.getTemplate()));
         templateProxy.getTemplate().getTemplateFieldList().add(new TemplateFieldDTO(id, generateUpdateId(templateProxy.getTemplate())));
         mv.addObject("template", templateProxy);
-        mv.addObject("types", types);
-        mv.addObject("action", "/usermgmt/templates/" + templateProxy.getTemplate().getTemplateId());
+
         return mv;
     }
 
@@ -111,14 +153,20 @@ public class TemplateController {
     }
 
     @PostMapping(value = "/add-item")
-    public ModelAndView addItem(@ModelAttribute("template") TemplateDTOFileProxy templateProxy) throws IOException {
+    public ModelAndView addItem(@ModelAttribute("template") @Validated(TemplateFormAddFieldValidator.class) TemplateDTOFileProxy templateProxy, BindingResult result) throws IOException {
         ModelAndView mv = new ModelAndView("new-template");
         List<String> types = getTypes();
-        templateProxy.getTemplate().getTemplateFieldList().add(new TemplateFieldDTO(0, generateNewId(templateProxy.getTemplate())));
         setFile(templateProxy);
-        mv.addObject("template", templateProxy);
         mv.addObject("types", types);
         mv.addObject("action", "/usermgmt/templates");
+        if (result.hasErrors()) {
+            mv.setViewName("new-template");
+            mv.addObject("template", templateProxy);
+            populateErrorCss(result, mv, templateProxy.getTemplate().getTemplateFieldList());
+            return mv;
+        }
+        templateProxy.getTemplate().getTemplateFieldList().add(new TemplateFieldDTO(0, generateNewId(templateProxy.getTemplate())));
+        mv.addObject("template", templateProxy);
         return mv;
     }
 
@@ -135,15 +183,20 @@ public class TemplateController {
     }
 
     @PostMapping(value = "/{id}/add-item")
-    public ModelAndView addItem(@ModelAttribute("template") TemplateDTOFileProxy templateProxy, @PathVariable Long id) throws IOException {
-        ModelAndView mv = new ModelAndView("new-template");
+    public ModelAndView addItem(@ModelAttribute("template") @Validated(TemplateFormAddFieldValidator.class) TemplateDTOFileProxy templateProxy, BindingResult result, @PathVariable Long id) throws IOException {
+        ModelAndView mv = new ModelAndView("view-template");
         List<String> types = getTypes();
+        mv.addObject("types", types);
+        mv.addObject("action", "/usermgmt/templates/" + id);
         setFile(templateProxy);
+        if (result.hasErrors()) {
+            mv.addObject("template", templateProxy);
+            populateErrorCss(result, mv, templateProxy.getTemplate().getTemplateFieldList());
+            return mv;
+        }
         templateFieldService.insert(templateProxy.getTemplate().getTemplateFieldList().get(templateProxy.getTemplate().getTemplateFieldList().size() - 1));
         templateProxy.getTemplate().getTemplateFieldList().add(new TemplateFieldDTO(id, generateUpdateId(templateProxy.getTemplate())));
         mv.addObject("template", templateProxy);
-        mv.addObject("types", types);
-        mv.addObject("action", "/usermgmt/templates/" + id);
         return mv;
     }
 
@@ -191,6 +244,44 @@ public class TemplateController {
             if (template.getTemplateFieldList().get(i).getTemplateFieldId() == id) {
                 template.getTemplateFieldList().remove(i);
             }
+        }
+    }
+
+    List<String> getListOfAttributes() {
+        List<String> listOfAttributes = new ArrayList<>();
+        listOfAttributes.add("templateName");
+        listOfAttributes.add("templateFile");
+        listOfAttributes.add("templateFileName");
+        listOfAttributes.add("templateFileType");
+        return listOfAttributes;
+    }
+
+    List<String> getListOfFieldAttributes() {
+        List<String> listOfAttributes = new ArrayList<>();
+        listOfAttributes.add("templateFieldName");
+        return listOfAttributes;
+    }
+
+    private void populateErrorCss(BindingResult result, ModelAndView mv, List<TemplateFieldDTO> fields) {
+        for (String attribute : getListOfAttributes()) {
+            if (result.hasFieldErrors("template." + attribute)) {
+                mv.addObject(attribute + "Vld", "is-invalid");
+            } else {
+                mv.addObject(attribute + "Vld", "is-valid");
+            }
+        }
+
+        for (String attribute : getListOfFieldAttributes()) {
+            List<String> attributes = new ArrayList<>();
+            for (int i = 0; i < fields.size() - 1; i++) {
+
+                if (result.hasFieldErrors("template.templateFieldList[" + i + "]." + attribute)) {
+                    attributes.add("is-invalid");
+                } else {
+                    attributes.add("is-valid");
+                }
+            }
+            mv.addObject(attribute + "Vld", attributes);
         }
     }
 }
