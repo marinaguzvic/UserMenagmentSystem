@@ -62,11 +62,36 @@
         <put-attribute name="buttons" value="/WEB-INF/views/tiles/documentTemplate/saveButtons.jsp" cascade="true" />  
     </definition>   
     
-    <!-- View user -->
+    <!-- View template -->
     <definition name="view-template" extends="base-definition">  
         <put-attribute name="title" value="View template" />  
         <put-attribute name="body" value="template-body" />  
         <put-attribute name="buttons" value="/WEB-INF/views/tiles/documentTemplate/viewButtons.jsp" cascade="true" />  
+    </definition>
+ 
+ <!-- All documents -->
+    <definition name="documents" extends="base-definition">  
+        <put-attribute name="title" value="Documents" />  
+        <put-attribute name="body" value="/WEB-INF/views/pages/documents.jsp" />  
+    </definition>  
+    
+    <!-- Base document definition -->
+    <definition name="document-body" template="/WEB-INF/views/tiles/layouts/documentLayout.jsp">  
+        <put-attribute name="buttons" value="" cascade="true" />
+    </definition> 
+    
+    <!-- New template -->
+    <definition name="new-document" extends="base-definition">  
+        <put-attribute name="title" value="Add new document" />  
+        <put-attribute name="body" value="document-body" />  
+        <put-attribute name="buttons" value="/WEB-INF/views/tiles/document/saveButtons.jsp" cascade="true" />  
+    </definition>   
+    
+    <!-- View template -->
+    <definition name="view-document" extends="base-definition">  
+        <put-attribute name="title" value="View document" />  
+        <put-attribute name="body" value="document-body" />  
+        <put-attribute name="buttons" value="/WEB-INF/views/tiles/document/viewButtons.jsp" cascade="true" />  
     </definition>
  
 </tiles-definitions>

@@ -6,6 +6,7 @@
 package com.marina.usermenagmentsystem.data.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -34,8 +37,17 @@ public class DocumentField implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected DocumentFieldPK documentFieldPK;
-    @Column(name = "field_value")
-    private String fieldValue;
+    @Column(name = "field_value_string")
+    private String fieldValueString;
+    @Column(name = "field_value_integer")
+    private Integer fieldValueInteger;
+    @Column(name = "field_value_double")
+    private Double fieldValueDouble;
+    @Column(name = "field_value_long")
+    private Long fieldValueLong;
+    @Column(name = "field_value_date")
+    @Temporal(TemporalType.DATE)
+    private Date fieldValueDate;
     @JoinColumn(name = "document_id_fk", referencedColumnName = "document_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Document document;
@@ -65,13 +77,47 @@ public class DocumentField implements Serializable {
         this.documentFieldPK = documentFieldPK;
     }
 
-    public String getFieldValue() {
-        return fieldValue;
+    public String getFieldValueString() {
+        return fieldValueString;
     }
 
-    public void setFieldValue(String fieldValue) {
-        this.fieldValue = fieldValue;
+    public void setFieldValueString(String fieldValueString) {
+        this.fieldValueString = fieldValueString;
     }
+
+    public Integer getFieldValueInteger() {
+        return fieldValueInteger;
+    }
+
+    public void setFieldValueInteger(Integer fieldValueInteger) {
+        this.fieldValueInteger = fieldValueInteger;
+    }
+
+    public Double getFieldValueDouble() {
+        return fieldValueDouble;
+    }
+
+    public void setFieldValueDouble(Double fieldValueDouble) {
+        this.fieldValueDouble = fieldValueDouble;
+    }
+
+    public Long getFieldValueLong() {
+        return fieldValueLong;
+    }
+
+    public void setFieldValueLong(Long fieldValueLong) {
+        this.fieldValueLong = fieldValueLong;
+    }
+
+    public Date getFieldValueDate() {
+        return fieldValueDate;
+    }
+
+    public void setFieldValueDate(Date fieldValueDate) {
+        this.fieldValueDate = fieldValueDate;
+    }
+    
+    
 
     public Document getDocument() {
         return document;

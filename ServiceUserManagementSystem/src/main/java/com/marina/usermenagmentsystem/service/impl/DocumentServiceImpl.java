@@ -5,9 +5,12 @@
  */
 package com.marina.usermenagmentsystem.service.impl;
 
+import com.marina.usermenagmentsystem.data.model.Document;
+import com.marina.usermenagmentsystem.data.model.DocumentField;
 import com.marina.usermenagmentsystem.data.repository.DocumentRepository;
 import com.marina.usermenagmentsystem.service.DocumentService;
 import com.marina.usermenagmentsystem.service.mapper.DocumentMapper;
+import com.marina.usermenagmentsystem.service.mapper.context.CycleAvoidingMappingContext;
 import com.marina.usermenagmentsystem.service.model.DocumentDTO;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +30,15 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public List<DocumentDTO> getAll() {
-        return documentMapper.toDtoModel(documentRepository.findAll());
+        List<Document> documents = documentRepository.findAll();
+        return documentMapper.toDtoModel(documents, CycleAvoidingMappingContext.getInstance());
     }
 
     @Override
     public DocumentDTO get(Long id) {
         try {
-            return documentMapper.toDtoModel(documentRepository.findById(id).get());
+            Document document = documentRepository.findById(id).get();
+            return documentMapper.toDtoModel(document, CycleAvoidingMappingContext.getInstance());
         } catch (Exception e) {
             return null;
         }
@@ -41,7 +46,8 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public DocumentDTO update(DocumentDTO user) {
-        return documentMapper.toDtoModel(documentRepository.save(documentMapper.toDataModel(user)));
+        Document document = documentRepository.save(documentMapper.toDataModel(user, CycleAvoidingMappingContext.getInstance()));
+        return documentMapper.toDtoModel(document, CycleAvoidingMappingContext.getInstance());
     }
 
     @Override
@@ -56,7 +62,30 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public DocumentDTO insert(DocumentDTO user) {
-        return documentMapper.toDtoModel(documentRepository.save(documentMapper.toDataModel(user)));
+        try {
+            Long id = generateNewId();
+            Document document = documentMapper.toDataModel(user, CycleAvoidingMappingContext.getInstance());
+            document.setDocumentId(id);
+            for (DocumentField documentField : document.getDocumentFieldList()) {
+                documentField.setDocument(document);
+                documentField.getDocumentFieldPK().setDocumentIdFk(id);
+            }
+            document = documentRepository.save(document);
+            return documentMapper.toDtoModel(document, CycleAvoidingMappingContext.getInstance());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
+    private Long generateNewId() {
+        List<Document> documents = documentRepository.findAll();
+        Long id = 0l;
+        for (Document document : documents) {
+            if (document.getDocumentId() > id) {
+                id = document.getDocumentId();
+            }
+        }
+        return ++id;
+    }
 }

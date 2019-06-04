@@ -6,8 +6,10 @@
 package com.marina.usermenagmentsystem.service.mapper;
 
 import com.marina.usermenagmentsystem.data.model.Document;
+import com.marina.usermenagmentsystem.service.mapper.context.CycleAvoidingMappingContext;
 import com.marina.usermenagmentsystem.service.model.DocumentDTO;
 import java.util.List;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 
 /**
@@ -15,16 +17,13 @@ import org.mapstruct.Mapper;
  * @author MARINA
  */
 
-@Mapper(componentModel = "spring")
+@Mapper(uses = DocumentFieldMapper.class, componentModel = "spring")
 public interface DocumentMapper {
-//    @Mappings({
-//        @Mapping(target = "documentID", source = "documentField.documentFieldPK.documentIdFk"),
-//        @Mapping(target = "documentFieldID", source = "documentField.documentFieldPK.fieldId")
-//    })
-    DocumentDTO toDtoModel(Document document);
 
-    List<DocumentDTO> toDtoModel(List<Document> documents);
-    List<Document> toDataModel(List<DocumentDTO> documents);
+    DocumentDTO toDtoModel(Document document, @Context CycleAvoidingMappingContext context);
+
+    List<DocumentDTO> toDtoModel(List<Document> documents, @Context CycleAvoidingMappingContext context);
+    List<Document> toDataModel(List<DocumentDTO> documents, @Context CycleAvoidingMappingContext context);
     
-    Document toDataModel(DocumentDTO document);
+    Document toDataModel(DocumentDTO document, @Context CycleAvoidingMappingContext context);
 }

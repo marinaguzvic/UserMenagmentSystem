@@ -125,7 +125,7 @@ public class TemplateController {
         mv.addObject("types", types);
         mv.addObject("action", "/usermgmt/templates/" + templateProxy.getTemplate().getTemplateId());
         if (result.hasErrors()) {
-            mv.setViewName("new-template");
+            mv.setViewName("view-template");
             mv.addObject("template", templateProxy);
             mv.addObject("action", "/usermgmt/templates");
             templateUtil.populateErrorCss(result, mv, templateProxy.getTemplate().getTemplateFieldList().size() - 1);
@@ -150,11 +150,5 @@ public class TemplateController {
         mv.addObject("templates", persons);
         return mv;
     }
-
-
-
-
-
-
 
 }
