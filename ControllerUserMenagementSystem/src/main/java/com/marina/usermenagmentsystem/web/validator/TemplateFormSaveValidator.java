@@ -8,6 +8,10 @@ package com.marina.usermenagmentsystem.web.validator;
 import com.marina.usermenagmentsystem.service.model.TemplateDTO;
 import com.marina.usermenagmentsystem.service.model.TemplateFieldDTO;
 import com.marina.usermenagmentsystem.web.controller.file.TemplateDTOFileProxy;
+import com.marina.usermenagmentsystem.web.controller.util.TemplateUtil;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -29,6 +33,9 @@ public class TemplateFormSaveValidator implements Validator {
     @Autowired
     @Qualifier("noSpecialCharactersValidator")
     NoSpecialCharactersValidator noSpecialCharactersValidator;
+    
+    @Autowired
+    TemplateUtil templateUtil;
 
     @Override
     public boolean supports(Class<?> type) {
@@ -38,6 +45,11 @@ public class TemplateFormSaveValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         TemplateDTOFileProxy template = (TemplateDTOFileProxy) o;
+        try {
+            templateUtil.setFile(template);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "template.templateName", "NotEmpty.templateForm.templateName");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "template.templateFile", "NotEmpty.templateForm.templateFile");
@@ -48,9 +60,6 @@ public class TemplateFormSaveValidator implements Validator {
             errors.reject("template.templateName", "Pattern.templateForm.templateName");
         }
 
-        if (!noSpecialCharactersValidator.valid(template.getTemplate().getTemplateFileName())) {
-            errors.reject("template.templateFileName", "Pattern.templateForm.templateFileName");
-        }
 
         for (int i = 0; i < template.getTemplate().getTemplateFieldList().size() - 1; i++) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "template.templateFieldList[" + i + "].templateFieldName", "NotEmpty.templateForm.templateFieldName");
@@ -60,7 +69,7 @@ public class TemplateFormSaveValidator implements Validator {
             }
         }
         
-        if(template.getTemplate().getTemplateFieldList().isEmpty()){
+        if(template.getTemplate().getTemplateFieldList().size() <= 1){
             errors.reject("template","NotEmpty.templateForm.template");
         }
 

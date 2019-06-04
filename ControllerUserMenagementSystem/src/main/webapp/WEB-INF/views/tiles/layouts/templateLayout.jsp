@@ -96,6 +96,7 @@
                     </c:forEach>
                 </tbody>
             </table>
+            <form:errors path="template" element="div"/>
             <div class="form-group row">
                 <div class="col-sm-10">
                     <tiles:insertAttribute name="buttons" />

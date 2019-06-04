@@ -5,7 +5,7 @@
 --%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<spring:url value="/usermgmt/templates/${template.template.templateId}/delete" var="deleteUrl" /> 
+<spring:url value="/templates/${template.template.templateId}/delete" var="deleteUrl" /> 
 
 <button class="btn btn-primary" 
         type="submit">Update</button>
