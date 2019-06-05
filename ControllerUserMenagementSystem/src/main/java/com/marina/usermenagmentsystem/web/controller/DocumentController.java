@@ -42,10 +42,10 @@ public class DocumentController {
 
     @Autowired
     DocumentService documentService;
-    
+
     @Autowired
     TemplateService templateService;
-    
+
     @Autowired
     DocumentFormValidator documentFormValidator;
 
@@ -98,7 +98,7 @@ public class DocumentController {
             mv.setViewName("new-document");
             mv.addObject("document", document);
             mv.addObject("action", "/usermgmt/templates/" + id + "/documents");
-//            templateUtil.populateErrorCss(result, mv, templateProxy.getTemplate().getTemplateFieldList().size() - 1);
+            populateErrorCss(result, mv, document.getDocumentFieldList().size());
             return mv;
         } else {
             mv.addObject("css", "success");
@@ -117,7 +117,7 @@ public class DocumentController {
         if (result.hasErrors()) {
             mv.setViewName("view-document");
             mv.addObject("document", document);
-            mv.addObject("action", "/usermgmt/templates");
+            populateErrorCss(result, mv, document.getDocumentFieldList().size());
             return mv;
         } else {
             mv.addObject("css", "success");
@@ -130,11 +130,45 @@ public class DocumentController {
     }
 
     @PostMapping(value = "/{documentId}/delete")
-    public ModelAndView delete(@PathVariable Long id) {
-        documentService.delete(id);
+    public ModelAndView delete(@PathVariable Long documentId) {
+        documentService.delete(documentId);
         List<DocumentDTO> documents = documentService.getAll();
         ModelAndView mv = new ModelAndView("documents");
         mv.addObject("documents", documents);
         return mv;
+    }
+
+    public void populateErrorCss(BindingResult result, ModelAndView mv, int size) {
+        for (String attribute : getListOfAttributes()) {
+            if (result.hasFieldErrors(attribute)) {
+                mv.addObject(attribute + "Vld", "is-invalid");
+            } else {
+                mv.addObject(attribute + "Vld", "is-valid");
+            }
+        }
+
+        for (String attribute : getListOfFieldAttributes()) {
+            List<String> validations = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                if (result.hasFieldErrors("documentFieldList[" + i + "]." + attribute)) {
+                    validations.add("is-invalid");
+                } else {
+                    validations.add("is-valid");
+                }
+            }
+            mv.addObject(attribute + "Vld", validations);
+        }
+    }
+
+    List<String> getListOfAttributes() {
+        List<String> listOfAttributes = new ArrayList<>();
+        listOfAttributes.add("documentName");
+        return listOfAttributes;
+    }
+
+    List<String> getListOfFieldAttributes() {
+        List<String> listOfAttributes = new ArrayList<>();
+        listOfAttributes.add("fieldValue");
+        return listOfAttributes;
     }
 }

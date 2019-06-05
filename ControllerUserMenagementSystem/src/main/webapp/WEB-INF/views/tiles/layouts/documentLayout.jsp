@@ -64,6 +64,7 @@
                             <form:input type="hidden" path="documentFieldList[${status.index}].templateField.templateFieldId"/>  
                             <form:input type="hidden" path="documentFieldList[${status.index}].templateField.templateId"/>  
                             <form:input type="hidden" path="documentFieldList[${status.index}].templateField.templateFieldType"/> 
+                            <form:input type="hidden" path="documentFieldList[${status.index}].templateField.templateFieldName"/> 
                             <th scope="row">${field.documentFieldId}</th>
 
                             <td>
@@ -73,7 +74,7 @@
                                 ${field.templateField.templateFieldType}
                             </td>
                             <td>
-                                <form:input path="documentFieldList[${status.index}].fieldValue" class="form-control transparent-input ${documentFieldVld[status.index]}"/>
+                                <form:input path="documentFieldList[${status.index}].fieldValue" class="form-control transparent-input ${fieldValueVld[status.index]}"/>
                                 <form:errors path="documentFieldList[${status.index}].fieldValue" class="invalid-feedback" element="div"/>
                             </td>
                         </tr>    
