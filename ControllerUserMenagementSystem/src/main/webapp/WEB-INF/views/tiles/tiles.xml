@@ -6,7 +6,7 @@
   
     <!-- Base Definition -->
     <definition name="base-definition" template="/WEB-INF/views/tiles/layouts/defaultLayout.jsp">  
-        <put-attribute name="title" value="" />  
+        <put-attribute name="title" value=""  cascade="true"/>  
         <put-attribute name="header" value="/WEB-INF/views/tiles/template/defaultHeader.jsp" />  
         <put-attribute name="menu" value="/WEB-INF/views/tiles/template/defaultMenu.jsp" />  
         <put-attribute name="body" value="" />  
@@ -15,13 +15,19 @@
   
     <!-- Home Page -->
     <definition name="home" extends="base-definition">  
-        <put-attribute name="title" value="Appache tiles:Home" />  
+        <put-attribute name="title" value="Appache tiles:Home"  cascade="true"/>  
         <put-attribute name="body" value="/WEB-INF/views/pages/home.jsp" />  
     </definition>  
+    
+        <!-- Index Page -->
+    <definition name="index" extends="base-definition">  
+        <put-attribute name="title" value="Index"  cascade="true"/>  
+        <put-attribute name="body" value="/WEB-INF/views/pages/index.jsp" />  
+    </definition> 
  
     <!-- All users -->
     <definition name="persons" extends="base-definition">  
-        <put-attribute name="title" value="Persons" />  
+        <put-attribute name="title" value="Persons"  cascade="true"/>  
         <put-attribute name="body" value="/WEB-INF/views/pages/persons.jsp" />  
     </definition>  
     
@@ -32,21 +38,21 @@
     
     <!-- New user -->
     <definition name="new-person" extends="base-definition">  
-        <put-attribute name="title" value="Add new person" />  
+        <put-attribute name="title" value="Add new person" cascade="true" />  
         <put-attribute name="body" value="person-body" />  
         <put-attribute name="buttons" value="/WEB-INF/views/tiles/person/saveButtons.jsp" cascade="true" />  
     </definition>   
     
     <!-- View user -->
     <definition name="view-person" extends="base-definition">  
-        <put-attribute name="title" value="View person" />  
+        <put-attribute name="title" value="View person" cascade="true" />  
         <put-attribute name="body" value="person-body" />  
         <put-attribute name="buttons" value="/WEB-INF/views/tiles/person/viewButtons.jsp" cascade="true" />  
     </definition>
     
     <!-- All templates -->
     <definition name="templates" extends="base-definition">  
-        <put-attribute name="title" value="Templates" />  
+        <put-attribute name="title" value="Templates" cascade="true" />  
         <put-attribute name="body" value="/WEB-INF/views/pages/templates.jsp" />  
     </definition>  
     
@@ -57,7 +63,7 @@
     
     <!-- New template -->
     <definition name="new-template" extends="base-definition">  
-        <put-attribute name="title" value="Add new template" />  
+        <put-attribute name="title" value="Add new template" cascade="true" />  
         <put-attribute name="body" value="template-body" />  
         <put-attribute name="buttons" value="/WEB-INF/views/tiles/documentTemplate/saveButtons.jsp" cascade="true" />  
     </definition>   
@@ -71,7 +77,7 @@
  
  <!-- All documents -->
     <definition name="documents" extends="base-definition">  
-        <put-attribute name="title" value="Documents" />  
+        <put-attribute name="title" value="Documents" cascade="true" />  
         <put-attribute name="body" value="/WEB-INF/views/pages/documents.jsp" />  
     </definition>  
     
@@ -82,14 +88,14 @@
     
     <!-- New template -->
     <definition name="new-document" extends="base-definition">  
-        <put-attribute name="title" value="Add new document" />  
+        <put-attribute name="title" value="Add new document" cascade="true" />  
         <put-attribute name="body" value="document-body" />  
         <put-attribute name="buttons" value="/WEB-INF/views/tiles/document/saveButtons.jsp" cascade="true" />  
     </definition>   
     
     <!-- View template -->
     <definition name="view-document" extends="base-definition">  
-        <put-attribute name="title" value="View document" />  
+        <put-attribute name="title" value="View document" cascade="true" />  
         <put-attribute name="body" value="document-body" />  
         <put-attribute name="buttons" value="/WEB-INF/views/tiles/document/viewButtons.jsp" cascade="true" />  
     </definition>

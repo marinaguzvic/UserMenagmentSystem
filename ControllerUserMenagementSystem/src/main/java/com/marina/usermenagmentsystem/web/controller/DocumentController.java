@@ -54,13 +54,13 @@ public class DocumentController {
         binder.setValidator(documentFormValidator);
     }
 
-    @GetMapping
-    public ModelAndView all() {
-        List<DocumentDTO> documents = documentService.getAll();
-        ModelAndView mv = new ModelAndView("documents");
-        mv.addObject("documents", documents);
-        return mv;
-    }
+//    @RequestMapping(value = "/documents")
+//    public ModelAndView all() {
+//        List<DocumentDTO> documents = documentService.getAll();
+//        ModelAndView mv = new ModelAndView("documents");
+//        mv.addObject("documents", documents);
+//        return mv;
+//    }
 
     @GetMapping(value = "/{documentId}")
     public ModelAndView get(@PathVariable Long id, @PathVariable Long documentId) {

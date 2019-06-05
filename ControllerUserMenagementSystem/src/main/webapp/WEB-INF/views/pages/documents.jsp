@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
 <div class="container-fluid">
 
@@ -13,7 +14,7 @@
         <li class="breadcrumb-item">
             <a href="index.html">Dashboard</a>
         </li>
-        <li class="breadcrumb-item active">Blank Page</li>
+        <li class="breadcrumb-item active"><tiles:getAsString name="title" /></li>
     </ol>
 
     <div class="panel panel-default">
