@@ -99,5 +99,10 @@
         <put-attribute name="body" value="document-body" />  
         <put-attribute name="buttons" value="/WEB-INF/views/tiles/document/viewButtons.jsp" cascade="true" />  
     </definition>
- 
+
+ <!-- Home Page -->
+    <definition name="login" extends="base-definition">  
+        <put-attribute name="title" value="Appache tiles:Home"  cascade="true"/>  
+        <put-attribute name="body" value="/WEB-INF/views/pages/login.jsp" />  
+    </definition>   
 </tiles-definitions>

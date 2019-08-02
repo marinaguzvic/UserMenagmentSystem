@@ -31,6 +31,8 @@
         <link href="/usermgmt/resources/css/sb-admin.css" rel="stylesheet" type="text/css"/>
         <link href="/usermgmt/resources/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css"/>
         <link href="/usermgmt/resources/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
+
     </head>
 
     <body id="page-top">
@@ -69,7 +71,7 @@
                     <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
+                        <a class="btn btn-primary" href="/usermgmt/perform_logout">Logout</a>
                     </div>
                 </div>
             </div>
@@ -87,20 +89,8 @@
         <!-- Custom scripts for all pages-->
         <script src="/usermgmt/resources/js/sb-admin.min.js"></script>
         <script src="/usermgmt/resources/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
-        <script>
-            $('.input-group.date').datepicker({
-                format: "dd/mm/yyyy",
-                startView: 2,
-                clearBtn: true,
-                daysOfWeekHighlighted: "0,6"
-            });
-            $('#customFile').on('change', function () {
-                //get the file name
-                var fileName = $(this).val();
-                //replace the "Choose a file" label
-                $('#file-label').html(fileName);
-            });
-        </script>
+        <script src="/usermgmt/resources/js/script.js" type="text/javascript"></script>
+
     </body>
 
 </html>

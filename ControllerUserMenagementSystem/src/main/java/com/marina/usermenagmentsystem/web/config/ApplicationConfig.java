@@ -24,9 +24,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import com.marina.usermenagmentsystem.service.PersonService;
+import java.util.Locale;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
 /**
  *
@@ -36,7 +40,9 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 @ComponentScan(basePackages = {
     "com.marina.usermenagmentsystem.data",
     "com.marina.usermenagmentsystem.service",
-    "com.marina.usermenagmentsystem.web"
+    "com.marina.usermenagmentsystem.web",
+    "com.marina.usermenagmentsystem.config",
+    "com.marina.usermenagmentsystem.config.custom"
 })
 public class ApplicationConfig {
 
@@ -81,10 +87,13 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public ResourceBundleMessageSource messageSource() {
-        ResourceBundleMessageSource rb = new ResourceBundleMessageSource();
-        rb.setBasenames(new String[]{"messages/validation"});
-        return rb;
+    public ReloadableResourceBundleMessageSource messageSource() {
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasenames(new String[]{"messages/validation", "messages/messages"});
+//        messageSource.setUseCodeAsDefaultMessage(true);
+        messageSource.setDefaultEncoding("UTF-8");
+        messageSource.setCacheSeconds(0);
+        return messageSource;
     }
 
     @Bean(name = "multipartResolver")
@@ -92,6 +101,13 @@ public class ApplicationConfig {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
         multipartResolver.setMaxUploadSize(10000000);
         return multipartResolver;
+    }
+
+    @Bean
+    public LocaleResolver localeResolver() {
+        CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
+        cookieLocaleResolver.setDefaultLocale(Locale.ENGLISH);
+        return cookieLocaleResolver;
     }
 
 //    @Bean

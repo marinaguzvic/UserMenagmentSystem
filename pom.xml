@@ -9,7 +9,9 @@
     <modules>
         <module>RepositoryUserMenagmentSystem</module>
         <module>ServiceUserManagementSystem</module>
-    <module>ControllerUserMenagementSystem</module>
+        <module>SecurityUserMenagmentSystem</module>
+        <module>ControllerUserMenagementSystem</module>
+       
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
