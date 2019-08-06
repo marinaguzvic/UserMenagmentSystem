@@ -67,8 +67,7 @@ public class Person implements Serializable {
     @JoinColumn(name = "position_id_fk", referencedColumnName = "position_id")
     @ManyToOne
     private Position position;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "person")
-    private Account account;
+
 
     public Person() {
     }
@@ -146,13 +145,6 @@ public class Person implements Serializable {
         this.position = position;
     }
 
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
 
     @Override
     public int hashCode() {

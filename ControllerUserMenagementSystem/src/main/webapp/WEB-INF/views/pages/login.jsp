@@ -49,7 +49,7 @@
                 <div class="form-group">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" value="remember-me">
+                            <input type="checkbox" value="true" name="remember-me">
                             Remember Password
                         </label>
                     </div>

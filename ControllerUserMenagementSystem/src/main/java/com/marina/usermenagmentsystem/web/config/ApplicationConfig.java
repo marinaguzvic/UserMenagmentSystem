@@ -12,7 +12,6 @@ import com.marina.usermenagmentsystem.service.DocumentService;
 import com.marina.usermenagmentsystem.service.PositionService;
 import com.marina.usermenagmentsystem.service.TemplateFieldService;
 import com.marina.usermenagmentsystem.service.TemplateService;
-import com.marina.usermenagmentsystem.service.impl.AccountServiceImpl;
 import com.marina.usermenagmentsystem.service.impl.CompanyServiceImpl;
 import com.marina.usermenagmentsystem.service.impl.DocumentFieldServiceImpl;
 import com.marina.usermenagmentsystem.service.impl.DocumentServiceImpl;
@@ -39,21 +38,18 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 @Configuration
 @ComponentScan(basePackages = {
     "com.marina.usermenagmentsystem.data",
+    "com.marina.usermenagmentsystem.database",
     "com.marina.usermenagmentsystem.service",
     "com.marina.usermenagmentsystem.web",
     "com.marina.usermenagmentsystem.config",
-    "com.marina.usermenagmentsystem.config.custom"
+    "com.marina.usermenagmentsystem.security.config",
+    "com.marina.usermenagmentsystem.security.database.config"
 })
 public class ApplicationConfig {
 
     @Bean
     public PersonService personService() {
         return new PersonServiceImpl();
-    }
-
-    @Bean
-    public AccountService accountService() {
-        return new AccountServiceImpl();
     }
 
     @Bean

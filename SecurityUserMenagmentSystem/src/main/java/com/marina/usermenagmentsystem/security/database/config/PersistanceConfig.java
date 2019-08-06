@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.marina.usermenagmentsystem.data.config;
+package com.marina.usermenagmentsystem.security.database.config;
 
 import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
@@ -11,8 +11,9 @@ import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.env.Environment;
@@ -31,16 +32,19 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "com.marina.usermenagmentsystem.data.repository",
-        entityManagerFactoryRef = "entityManagerFactory",
-        transactionManagerRef = "transactionManager")
+        basePackages = "com.marina.usermenagmentsystem.database",
+        entityManagerFactoryRef = "securityEntityManagerFactory",
+        transactionManagerRef = "securityTransactionManager")
 //Configure the base packages that are scanned when Spring Data JPA creates implementations for our repository interfaces.
 @PropertySources({
     @PropertySource("classpath:repository_config.properties")
 })
 //Enabling Annotation-Driven Transaction Management
-@EnableTransactionManagement
-public class JPAConfig {
+//@EnableTransactionManagement
+//@ComponentScans(value = {
+//    @ComponentScan("com.marina.usermenagmentsystem.database"),
+//    @ComponentScan("com.marina.usermenagmentsystem.security.service")})
+public class PersistanceConfig {
     
     @Autowired
     Environment env;
@@ -49,12 +53,11 @@ public class JPAConfig {
     //First we create LocalContatinerEntityManager factory bean because it creates EntityManagerFactory
     //Then we configure datasource and hibernate specific implementation of the JpaVendorAdapter interface
     //We also configure the packages that are scanned for entity classes here
-    @Primary
-    @Bean(name = "entityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
+    @Bean(name = "securityEntityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean securityEntityManagerFactory(){
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[]{"com.marina.usermenagmentsystem.data.model"});
+        em.setDataSource(securityDataSource());
+        em.setPackagesToScan(new String[]{"com.marina.usermenagmentsystem.database.model"});
         
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
@@ -63,27 +66,24 @@ public class JPAConfig {
     }
     
     //Here we set the properties for a MySql database
-    @Primary
     @Bean
-    public DataSource dataSource(){
-        BasicDataSource dataSource = new BasicDataSource();
+    public DataSource securityDataSource(){
+         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(env.getProperty("database.driver"));
-        dataSource.setUrl(env.getProperty("database.url"));
+        dataSource.setUrl(env.getProperty("security.database.url"));
         dataSource.setUsername(env.getProperty("database.user"));
         dataSource.setPassword(env.getProperty("database.password"));
         return dataSource;
     }
 
     //Now we need to configure transaction manager bean. He takes entity manager factory as an argument
-    @Primary
-    @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
+    @Bean("securityTransactionManager")
+    public PlatformTransactionManager securityTransactionManager(EntityManagerFactory emf){
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(emf);
         return transactionManager;
     }
-    
-    @Primary
+//    
     @Bean
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
         return new PersistenceExceptionTranslationPostProcessor();

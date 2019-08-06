@@ -3,17 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.marina.usermenagmentsystem.data.repository;
+package com.marina.usermenagmentsystem.database;
 
-import com.marina.usermenagmentsystem.data.model.Account;
+import com.marina.usermenagmentsystem.database.model.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author MARINA
  */
-@Repository
+@Repository("accountRepository")
+@Transactional
 public interface AccountRepository extends JpaRepository<Account, Long>{
-    
+    public Account findByUsername(String username);
 }
