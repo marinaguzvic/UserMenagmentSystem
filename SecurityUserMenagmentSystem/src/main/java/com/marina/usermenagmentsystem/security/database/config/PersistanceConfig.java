@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.env.Environment;
@@ -34,13 +35,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(
         basePackages = "com.marina.usermenagmentsystem.database",
         entityManagerFactoryRef = "securityEntityManagerFactory",
-        transactionManagerRef = "securityTransactionManager")
+        transactionManagerRef = "securityTransactionManager"
+        )
 //Configure the base packages that are scanned when Spring Data JPA creates implementations for our repository interfaces.
 @PropertySources({
     @PropertySource("classpath:repository_config.properties")
 })
 //Enabling Annotation-Driven Transaction Management
-//@EnableTransactionManagement
+@EnableTransactionManagement
 //@ComponentScans(value = {
 //    @ComponentScan("com.marina.usermenagmentsystem.database"),
 //    @ComponentScan("com.marina.usermenagmentsystem.security.service")})
@@ -53,6 +55,7 @@ public class PersistanceConfig {
     //First we create LocalContatinerEntityManager factory bean because it creates EntityManagerFactory
     //Then we configure datasource and hibernate specific implementation of the JpaVendorAdapter interface
     //We also configure the packages that are scanned for entity classes here
+    
     @Bean(name = "securityEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean securityEntityManagerFactory(){
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
@@ -79,8 +82,9 @@ public class PersistanceConfig {
     //Now we need to configure transaction manager bean. He takes entity manager factory as an argument
     @Bean("securityTransactionManager")
     public PlatformTransactionManager securityTransactionManager(EntityManagerFactory emf){
+        
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(emf);
+        transactionManager.setEntityManagerFactory(securityEntityManagerFactory().getObject());
         return transactionManager;
     }
 //    
@@ -93,6 +97,8 @@ public class PersistanceConfig {
         Properties properties = new Properties();
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
+        properties.setProperty("hibernate.show_sql", "true");
+        properties.setProperty("hibernate.hbm2ddl.auto", "validate");
         return properties;
     }
 }

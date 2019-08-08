@@ -5,13 +5,20 @@
  */
 package com.marina.usermenagmentsystem.config.custom;
 
+import com.marina.usermenagmentsystem.database.AccountRepository;
+import com.marina.usermenagmentsystem.database.PersistentLoginsRepository;
+import com.marina.usermenagmentsystem.database.model.Account;
+import com.marina.usermenagmentsystem.database.model.PersistentLogins;
+import com.marina.usermenagmentsystem.database.service.AccountService;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -27,12 +34,15 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     protected Log logger = LogFactory.getLog(this.getClass());
  
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+    
+    @Autowired
+    AccountService accountService;
  
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, 
       HttpServletResponse response, Authentication authentication)
       throws IOException {
-  
+
         handle(request, response, authentication);
         clearAuthenticationAttributes(request);
     }

@@ -121,6 +121,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository(){
+        
         return new PersistentLoginsTokenRepositoryImp();
     }
 }

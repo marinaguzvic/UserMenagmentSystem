@@ -7,6 +7,7 @@ package com.marina.usermenagmentsystem.security.service;
 
 import com.marina.usermenagmentsystem.database.AccountRepository;
 import com.marina.usermenagmentsystem.database.model.Account;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
@@ -27,14 +28,12 @@ public class UserDetailsServiceImp implements UserDetailsService{
     private AccountRepository accountRepository;
     
     
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
 
         Account account = accountRepository.findByUsername(string);
-        UserBuilder builder = null;
-        System.out.println(account.getUsername());
-        System.out.println(account.getPassword());
+        UserBuilder builder = null;        
         if(account != null){
             builder = User.withUsername(string);
             builder.disabled(!account.isEnabled());

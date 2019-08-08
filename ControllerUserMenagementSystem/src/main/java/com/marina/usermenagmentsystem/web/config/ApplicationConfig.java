@@ -5,7 +5,6 @@
  */
 package com.marina.usermenagmentsystem.web.config;
 
-import com.marina.usermenagmentsystem.service.AccountService;
 import com.marina.usermenagmentsystem.service.CompanyService;
 import com.marina.usermenagmentsystem.service.DocumentFieldService;
 import com.marina.usermenagmentsystem.service.DocumentService;

@@ -16,19 +16,19 @@ import javax.persistence.Table;
  * @author MARINA
  */
 @Entity
-@Table(name = "persistent_logins")
+@Table(name = "persistent_logins", schema = "token_base")
 public class PersistentLogins {
-    
+
+    @Column(name = "username", nullable = false)
+    private String username;
+
     @Id
     @Column(name = "series")
     private String series;
-    
-    @Column(name = "username", nullable = false)
-    private String username;
-            
+
     @Column(name = "token", nullable = false)
     private String token;
-    
+
     @Column(name = "last_used", nullable = false)
     private Date lastUsed;
 
@@ -63,6 +63,5 @@ public class PersistentLogins {
     public void setLastUsed(Date lastUsed) {
         this.lastUsed = lastUsed;
     }
-    
-    
+
 }

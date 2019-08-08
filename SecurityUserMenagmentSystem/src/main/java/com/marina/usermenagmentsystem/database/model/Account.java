@@ -20,7 +20,7 @@ import javax.persistence.Table;
  * @author MARINA
  */
 @Entity
-@Table(name = "account")
+@Table(name = "account", schema = "token_base")
 public class Account {
     
     @Id

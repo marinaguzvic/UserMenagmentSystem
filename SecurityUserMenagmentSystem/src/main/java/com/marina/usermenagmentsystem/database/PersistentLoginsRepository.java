@@ -8,6 +8,7 @@ package com.marina.usermenagmentsystem.database;
 import com.marina.usermenagmentsystem.database.model.PersistentLogins;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -15,5 +16,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PersistentLoginsRepository extends JpaRepository<PersistentLogins, String>{
-    
+    public void deleteByUsername(String username);
 }
