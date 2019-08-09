@@ -33,7 +33,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "com.marina.usermenagmentsystem.database",
+        basePackages = "com.marina.usermenagmentsystem.security.database",
         entityManagerFactoryRef = "securityEntityManagerFactory",
         transactionManagerRef = "securityTransactionManager"
         )
@@ -60,7 +60,7 @@ public class PersistanceConfig {
     public LocalContainerEntityManagerFactoryBean securityEntityManagerFactory(){
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(securityDataSource());
-        em.setPackagesToScan(new String[]{"com.marina.usermenagmentsystem.database.model"});
+        em.setPackagesToScan(new String[]{"com.marina.usermenagmentsystem.security.database.model"});
         
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

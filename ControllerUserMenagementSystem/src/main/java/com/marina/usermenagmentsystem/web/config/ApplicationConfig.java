@@ -37,12 +37,14 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 @Configuration
 @ComponentScan(basePackages = {
     "com.marina.usermenagmentsystem.data",
-    "com.marina.usermenagmentsystem.database",
     "com.marina.usermenagmentsystem.service",
     "com.marina.usermenagmentsystem.web",
     "com.marina.usermenagmentsystem.config",
     "com.marina.usermenagmentsystem.security.config",
-    "com.marina.usermenagmentsystem.security.database.config"
+    "com.marina.usermenagmentsystem.security.database",
+    "com.marina.usermenagmentsystem.security.database.config",
+    "com.marina.usermenagmentsystem.security.controller",
+    "com.marina.usermenagmentsystem.security.service"
 })
 public class ApplicationConfig {
 

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.marina.usermenagmentsystem.security.service;
+package com.marina.usermenagmentsystem.security.service.impl;
 
-import com.marina.usermenagmentsystem.database.AccountRepository;
-import com.marina.usermenagmentsystem.database.model.Account;
+import com.marina.usermenagmentsystem.security.database.AccountRepository;
+import com.marina.usermenagmentsystem.security.database.model.Account;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;

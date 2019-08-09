@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.marina.usermenagmentsystem.database.model;
+package com.marina.usermenagmentsystem.security.database.model;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +11,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,8 +26,15 @@ import javax.persistence.Table;
 public class Account {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+    
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
     
     @Column(name = "username", nullable = false)
     private String username;
@@ -49,6 +58,23 @@ public class Account {
 //    public void setAuthorities(List<Authority> authorities) {
 //        this.authorities = authorities;
 //    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    
     
     public Long getId() {
         return id;

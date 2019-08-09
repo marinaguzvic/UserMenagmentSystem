@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.marina.usermenagmentsystem.config.custom;
+package com.marina.usermenagmentsystem.security.custom.handler;
 
 import java.io.IOException;
 import java.util.Calendar;

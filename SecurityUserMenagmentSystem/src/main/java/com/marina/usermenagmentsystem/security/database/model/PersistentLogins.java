@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.marina.usermenagmentsystem.database.model;
+package com.marina.usermenagmentsystem.security.database.model;
 
 import java.util.Date;
 import javax.persistence.Column;

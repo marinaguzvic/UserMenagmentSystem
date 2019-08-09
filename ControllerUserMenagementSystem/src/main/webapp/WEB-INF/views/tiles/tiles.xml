@@ -19,7 +19,7 @@
         <put-attribute name="body" value="/WEB-INF/views/pages/home.jsp" />  
     </definition>  
     
-        <!-- Index Page -->
+    <!-- Index Page -->
     <definition name="index" extends="base-definition">  
         <put-attribute name="title" value="Index"  cascade="true"/>  
         <put-attribute name="body" value="/WEB-INF/views/pages/index.jsp" />  
@@ -75,7 +75,7 @@
         <put-attribute name="buttons" value="/WEB-INF/views/tiles/documentTemplate/viewButtons.jsp" cascade="true" />  
     </definition>
  
- <!-- All documents -->
+    <!-- All documents -->
     <definition name="documents" extends="base-definition">  
         <put-attribute name="title" value="Documents" cascade="true" />  
         <put-attribute name="body" value="/WEB-INF/views/pages/documents.jsp" />  
@@ -100,9 +100,15 @@
         <put-attribute name="buttons" value="/WEB-INF/views/tiles/document/viewButtons.jsp" cascade="true" />  
     </definition>
 
- <!-- Home Page -->
+    <!-- Login Page -->
     <definition name="login" extends="base-definition">  
         <put-attribute name="title" value="Appache tiles:Home"  cascade="true"/>  
         <put-attribute name="body" value="/WEB-INF/views/pages/login.jsp" />  
+    </definition>   
+    
+    <!-- Registration Page -->
+    <definition name="registration" extends="base-definition">  
+        <put-attribute name="title" value="Appache tiles:Home"  cascade="true"/>  
+        <put-attribute name="body" value="/WEB-INF/views/pages/registration.jsp" />  
     </definition>   
 </tiles-definitions>

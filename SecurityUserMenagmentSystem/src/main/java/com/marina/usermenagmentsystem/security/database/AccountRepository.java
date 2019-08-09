@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.marina.usermenagmentsystem.database;
+package com.marina.usermenagmentsystem.security.database;
 
-import com.marina.usermenagmentsystem.database.model.PersistentLogins;
+import com.marina.usermenagmentsystem.security.database.model.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author MARINA
  */
-@Repository
-public interface PersistentLoginsRepository extends JpaRepository<PersistentLogins, String>{
-    public void deleteByUsername(String username);
+@Repository("accountRepository")
+@Transactional
+public interface AccountRepository extends JpaRepository<Account, Long>{
+    public Account findByUsername(String username);
 }

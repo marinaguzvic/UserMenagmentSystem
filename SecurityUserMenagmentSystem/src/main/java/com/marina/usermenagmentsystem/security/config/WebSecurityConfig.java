@@ -5,10 +5,10 @@
  */
 package com.marina.usermenagmentsystem.security.config;
 
-import com.marina.usermenagmentsystem.config.custom.CustomAuthenticationFailureHandler;
-import com.marina.usermenagmentsystem.config.custom.CustomAuthenticationSuccessHandler;
-import com.marina.usermenagmentsystem.config.custom.CustomLogoutSuccessHandler;
-import com.marina.usermenagmentsystem.security.service.UserDetailsServiceImp;
+import com.marina.usermenagmentsystem.security.custom.handler.CustomAuthenticationFailureHandler;
+import com.marina.usermenagmentsystem.security.custom.handler.CustomAuthenticationSuccessHandler;
+import com.marina.usermenagmentsystem.security.custom.handler.CustomLogoutSuccessHandler;
+import com.marina.usermenagmentsystem.security.service.impl.UserDetailsServiceImp;
 import com.marina.usermenagmentsystem.security.token.PersistentLoginsTokenRepositoryImp;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/anonymous*").anonymous()
                 .antMatchers("/login*").permitAll()
+                .antMatchers("/registration*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

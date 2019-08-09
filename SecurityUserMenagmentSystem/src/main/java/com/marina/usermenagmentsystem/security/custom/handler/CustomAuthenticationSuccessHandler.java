@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.marina.usermenagmentsystem.config.custom;
+package com.marina.usermenagmentsystem.security.custom.handler;
 
-import com.marina.usermenagmentsystem.database.AccountRepository;
-import com.marina.usermenagmentsystem.database.PersistentLoginsRepository;
-import com.marina.usermenagmentsystem.database.model.Account;
-import com.marina.usermenagmentsystem.database.model.PersistentLogins;
-import com.marina.usermenagmentsystem.database.service.AccountService;
+import com.marina.usermenagmentsystem.security.database.AccountRepository;
+import com.marina.usermenagmentsystem.security.database.PersistentLoginsRepository;
+import com.marina.usermenagmentsystem.security.database.model.Account;
+import com.marina.usermenagmentsystem.security.database.model.PersistentLogins;
+import com.marina.usermenagmentsystem.security.service.AccountService;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;

@@ -111,5 +111,19 @@
             <artifactId>commons-dbcp2</artifactId>
             <version>2.5.0</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${mapstruct.version}</version>
+            <!-- Does not pick up the processor if it is not in the dependencies. -->
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

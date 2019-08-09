@@ -5,9 +5,9 @@
  */
 package com.marina.usermenagmentsystem.security.token;
 
-import com.marina.usermenagmentsystem.database.PersistentLoginsRepository;
-import com.marina.usermenagmentsystem.database.model.PersistentLogins;
-import com.marina.usermenagmentsystem.database.service.PersistentLoginsService;
+import com.marina.usermenagmentsystem.security.database.PersistentLoginsRepository;
+import com.marina.usermenagmentsystem.security.database.model.PersistentLogins;
+import com.marina.usermenagmentsystem.security.service.PersistentLoginsService;
 import java.util.Date;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

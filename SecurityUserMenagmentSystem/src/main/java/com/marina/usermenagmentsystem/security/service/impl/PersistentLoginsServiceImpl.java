@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.marina.usermenagmentsystem.database.service.impl;
+package com.marina.usermenagmentsystem.security.service.impl;
 
-import com.marina.usermenagmentsystem.database.PersistentLoginsRepository;
-import com.marina.usermenagmentsystem.database.model.PersistentLogins;
-import com.marina.usermenagmentsystem.database.service.PersistentLoginsService;
+import com.marina.usermenagmentsystem.security.database.PersistentLoginsRepository;
+import com.marina.usermenagmentsystem.security.database.model.PersistentLogins;
+import com.marina.usermenagmentsystem.security.service.PersistentLoginsService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

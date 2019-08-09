@@ -5,8 +5,8 @@
  */
 package com.marina.usermenagmentsystem.app.config;
 
-import com.marina.usermenagmentsystem.database.service.AccountService;
-import com.marina.usermenagmentsystem.database.service.impl.AccountServiceImpl;
+import com.marina.usermenagmentsystem.security.service.AccountService;
+import com.marina.usermenagmentsystem.security.service.impl.AccountServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,11 +17,13 @@ import org.springframework.stereotype.Component;
  * @author MARINA
  */
 @Configuration
-@ComponentScan(basePackages = {"com.marina.usermenagmentsystem.database.service"})
+@ComponentScan(basePackages = {
+    "com.marina.usermenagmentsystem.security.service",
+    "com.marina.usermenagmentsystem.security.service.mapper"})
 public class AppSecurityConfig {
-    
+
     @Bean
-    AccountService accountService(){
+    public AccountService accountService() {
         return new AccountServiceImpl();
     }
 }

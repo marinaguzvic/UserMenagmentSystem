@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.marina.usermenagmentsystem.database.service;
+package com.marina.usermenagmentsystem.security.service;
 
-import com.marina.usermenagmentsystem.database.model.PersistentLogins;
+import com.marina.usermenagmentsystem.security.database.model.PersistentLogins;
 import java.util.List;
 
 /**
