@@ -21,16 +21,16 @@ import org.springframework.validation.Validator;
 public class RegistrationFormValidator implements Validator {
 
     @Autowired
-    @Qualifier("emailPatternValidator")
-    EmailPatternValidator emailPatternValidator;
+    @Qualifier("emailValidator")
+    EmailPatternValidator emailValidator;
 
     @Autowired
-    @Qualifier("emailUniqueValidator")
-    EmailUniqueValidator emailUniqueValidator;
+    @Qualifier("uniqueAccountValidator")
+    UniqueAccountValidator uniqueAccountValidator;
 
     @Autowired
-    @Qualifier("noSpecialCharactersOrNumbersValidator")
-    NoSpecialCharactersOrNumbersValidator noSpecialCharactersOrNumbersValidator;
+    @Qualifier("noSpecialCharactersNumbersValidator")
+    NoSpecialCharactersNumbersValidator noSpecialCharactersOrNumbersValidator;
 
     @Autowired
     @Qualifier("passwordValidator")
@@ -50,11 +50,11 @@ public class RegistrationFormValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "NotEmpty.registrationForm.lastName");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "gender", "NotEmpty.registrationForm.gender");
 
-        if (!emailPatternValidator.valid(a.getEmail())) {
+        if (!emailValidator.valid(a.getEmail())) {
             errors.rejectValue("email", "Pattern.registrationForm.email");
         }
 
-        if (!emailUniqueValidator.valid(a.getId(), a.getEmail())) {
+        if (!uniqueAccountValidator.valid(a.getId(), a.getEmail())) {
             errors.rejectValue("email", "Unique.registrationForm.email");
         }
 

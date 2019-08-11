@@ -8,7 +8,6 @@ package com.marina.usermenagmentsystem.service.model;
 import com.marina.usermenagmentsystem.service.model.util.ModelConstants;
 import java.util.Date;
 import java.util.Objects;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -31,12 +30,11 @@ public class PersonDTO {
     public void setPosition(PositionDTO position) {
         this.position = position;
     }
-    private AccountDTO account;
 
     public PersonDTO() {
     }
 
-    public PersonDTO(Long id, String email, String firstName, String lastName, String mobileNumber, String gender, Date dateOfBirth, PositionDTO positionIdFk, AccountDTO account) {
+    public PersonDTO(Long id, String email, String firstName, String lastName, String mobileNumber, String gender, Date dateOfBirth, PositionDTO positionIdFk) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
@@ -45,7 +43,6 @@ public class PersonDTO {
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.position = positionIdFk;
-        this.account = account;
     }
 
 
@@ -108,14 +105,6 @@ public class PersonDTO {
 
 
 
-    public AccountDTO getAccount() {
-        return account;
-    }
-
-    public void setAccount(AccountDTO account) {
-        this.account = account;
-    }
-
     @Override
     public int hashCode() {
         int hash = 5;
@@ -126,7 +115,6 @@ public class PersonDTO {
         hash = 41 * hash + Objects.hashCode(this.mobileNumber);
         hash = 41 * hash + Objects.hashCode(this.gender);
         hash = 41 * hash + Objects.hashCode(this.dateOfBirth);
-        hash = 41 * hash + Objects.hashCode(this.account);
         return hash;
     }
 

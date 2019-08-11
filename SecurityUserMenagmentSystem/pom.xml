@@ -99,6 +99,11 @@
             <version>2.1.3.RELEASE</version>
         </dependency>
         
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>5.0.6.RELEASE</version>
+        </dependency>
 
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -124,6 +129,12 @@
             <version>${mapstruct.version}</version>
             <!-- Does not pick up the processor if it is not in the dependencies. -->
             <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
         </dependency>
     </dependencies>
 </project>

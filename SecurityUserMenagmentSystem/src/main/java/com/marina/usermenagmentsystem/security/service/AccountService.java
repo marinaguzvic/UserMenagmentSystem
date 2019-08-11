@@ -18,6 +18,8 @@ public interface AccountService {
     public List<AccountDTO> getAll();
 
     public AccountDTO get(Long id);
+    
+    public Account getRaw(Long id);
 
     public AccountDTO update(AccountDTO user);
 

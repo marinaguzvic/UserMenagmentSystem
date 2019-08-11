@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
  *
  * @author MARINA
  */
-@Component("emailUniqueValidator")
-public class EmailUniqueValidator {
+@Component("uniqueAccountValidator")
+public class UniqueAccountValidator {
 
     @Autowired
     AccountService accountService;

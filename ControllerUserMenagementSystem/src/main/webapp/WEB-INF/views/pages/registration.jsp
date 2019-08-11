@@ -17,13 +17,13 @@
                     <div class="form-row">
                         <div class="col-md-6">
                             <div class="form-label-group">
-                                <form:input type="text" path="firstName" id="firstName" placeholder="First name" class="form-control" required="required" autofocus="autofocus" />
+                                <form:input type="text" path="firstName" id="firstName" class="form-control" required="required" autofocus="autofocus" />
                                 <form:label path="firstName">First name</form:label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-label-group">
-                                <form:input type="text" path="lastName" id="lastName" placeholder="Last name" class="form-control" required="required" autofocus="autofocus" />
+                                <form:input type="text" path="lastName" id="lastName" class="form-control" required="required" autofocus="autofocus" />
                                 <form:label path="lastName">Last name</form:label>
                                 </div>
                             </div>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="form-group">
                         <div class="form-label-group">
-                        <form:input type="email" path="email" id="email" placeholder="Email" class="form-control" required="required" autofocus="autofocus" />
+                        <form:input type="email" path="email" id="email" class="form-control" required="required" autofocus="autofocus" />
                         <form:label path="email">Email address</form:label>
                         </div>
                     </div>

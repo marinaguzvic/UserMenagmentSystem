@@ -23,6 +23,16 @@ public class AccountDTO {
     private String confirmPassword;
 
     private String email;
+    
+    private boolean enabled;
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public Long getId() {
         return id;

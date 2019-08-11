@@ -5,7 +5,6 @@
  */
 package com.marina.usermenagmentsystem.service;
 
-import com.marina.usermenagmentsystem.service.model.AccountDTO;
 import com.marina.usermenagmentsystem.service.model.CompanyDTO;
 import java.util.List;
 

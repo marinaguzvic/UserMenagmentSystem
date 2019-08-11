@@ -90,7 +90,7 @@ public class PersonServiceTest {
 
     @Test
     public void testSavePerson() {
-        PersonDTO person = new PersonDTO(null, "test@test.com", "Test", "Test", "+381641121333", "Female", new Date(), positionService.get(1L), null);
+        PersonDTO person = new PersonDTO(null, "test@test.com", "Test", "Test", "+381641121333", "Female", new Date(), positionService.get(1L));
         personService.insert(person);
         List<PersonDTO> persons = personService.getAll();
         Assert.assertEquals(6, persons.size());

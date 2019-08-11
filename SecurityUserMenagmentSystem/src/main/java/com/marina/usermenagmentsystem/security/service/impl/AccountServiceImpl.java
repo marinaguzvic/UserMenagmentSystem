@@ -63,10 +63,15 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountDTO insert(AccountDTO user) {
         Account account = accountMapper.toDataModel(user);
-        account.setEnabled(true);
+        account.setEnabled(false);
         account.setCreated(new Date());
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         return accountMapper.toDtoModel(accountRepository.save(account));
+    }
+
+    @Override
+    public Account getRaw(Long id) {
+        return accountRepository.findById(id).get();
     }
 
 }

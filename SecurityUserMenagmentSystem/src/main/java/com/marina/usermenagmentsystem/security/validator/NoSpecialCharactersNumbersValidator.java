@@ -13,15 +13,15 @@ import org.springframework.stereotype.Component;
  *
  * @author MARINA
  */
-@Component("noSpecialCharactersOrNumbersValidator")
-public class NoSpecialCharactersOrNumbersValidator {
+@Component("noSpecialCharactersNumbersValidator")
+public class NoSpecialCharactersNumbersValidator {
 
     private Pattern pattern;
     private Matcher matcher;
 
     private static final String NO_SPECIAL_CHARACTERS_OR_NUMBERS_PATTERN = "[A-Za-z ]+";
 
-    public NoSpecialCharactersOrNumbersValidator() {
+    public NoSpecialCharactersNumbersValidator() {
         pattern = Pattern.compile(NO_SPECIAL_CHARACTERS_OR_NUMBERS_PATTERN, Pattern.CASE_INSENSITIVE);
     }
 

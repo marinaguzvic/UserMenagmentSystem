@@ -5,6 +5,7 @@
  */
 package com.marina.usermenagmentsystem.web.config;
 
+import com.marina.usermenagmentsystem.app.config.AppSecurityConfig;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -29,6 +30,7 @@ public class АppliactionInitializer implements WebApplicationInitializer {
     public void onStartup(ServletContext sc) throws ServletException {
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
         rootContext.register(ApplicationConfig.class);
+        rootContext.register(AppSecurityConfig.class);
         sc.addListener(new ContextLoaderListener(rootContext));
         AnnotationConfigWebApplicationContext dispatcherWebContext = new AnnotationConfigWebApplicationContext();
         dispatcherWebContext.register(WebConfig.class);
