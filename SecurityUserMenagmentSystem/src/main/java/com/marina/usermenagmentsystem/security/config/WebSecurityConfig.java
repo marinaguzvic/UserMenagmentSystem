@@ -71,6 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/anonymous*").anonymous()
                 .antMatchers("/login*").permitAll()
                 .antMatchers("/registration*").permitAll()
+                .antMatchers("/registration/confirm*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

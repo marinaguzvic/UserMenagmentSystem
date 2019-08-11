@@ -5,6 +5,8 @@
  */
 package com.marina.usermenagmentsystem.security.database.model.dto;
 
+import java.util.Date;
+
 
 /**
  *
@@ -25,6 +27,17 @@ public class AccountDTO {
     private String email;
     
     private boolean enabled;
+    
+    private Date created;
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+    
 
     public boolean isEnabled() {
         return enabled;

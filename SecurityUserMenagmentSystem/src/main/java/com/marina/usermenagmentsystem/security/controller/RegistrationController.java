@@ -82,7 +82,7 @@ public class RegistrationController {
         return mv;
     }
 
-    @GetMapping("/confirm")
+    @GetMapping(value = "/confirm")
     public ModelAndView confirmRegistration(WebRequest request, @RequestParam("token") String token) {
 
         ModelAndView modelAndView = new ModelAndView("login");

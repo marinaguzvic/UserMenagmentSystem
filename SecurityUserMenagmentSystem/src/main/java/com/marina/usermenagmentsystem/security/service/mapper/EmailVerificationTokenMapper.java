@@ -14,7 +14,7 @@ import org.mapstruct.Mapper;
  *
  * @author MARINA
  */
-@Mapper(componentModel = "spring")
+@Mapper(uses = AccountMapper.class, componentModel = "spring")
 public interface EmailVerificationTokenMapper {
     EmailVerificationTokenDTO toDtoModel(EmailVerificationToken token);
 
