@@ -16,4 +16,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmailVerificationTokenRepository extends JpaRepository<EmailVerificationToken, Long>{
     public EmailVerificationToken findByToken(String token);
+    public void deleteByAccountId(Long id);
 }

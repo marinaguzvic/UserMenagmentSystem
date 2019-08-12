@@ -15,6 +15,7 @@ import com.marina.usermenagmentsystem.security.service.mapper.AccountMapper;
 import com.marina.usermenagmentsystem.security.service.mapper.EmailVerificationTokenMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -44,6 +45,12 @@ public class EmailVerificationTokenServiceImpl implements EmailVerificationToken
     @Override
     public EmailVerificationTokenDTO getByToken(String token) {
         return mapper.toDtoModel(emailVerificationTokenRepository.findByToken(token));
+    }
+
+    @Transactional
+    @Override
+    public void deleteByAccount(Long id) {
+        emailVerificationTokenRepository.deleteByAccountId(id);
     }
     
 }

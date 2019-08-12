@@ -15,4 +15,6 @@ import com.marina.usermenagmentsystem.security.database.model.dto.EmailVerificat
 public interface EmailVerificationTokenService {
     public void createVerificationToken(Account account, String token);
     public EmailVerificationTokenDTO getByToken(String token);
+
+    public void deleteByAccount(Long id);
 }

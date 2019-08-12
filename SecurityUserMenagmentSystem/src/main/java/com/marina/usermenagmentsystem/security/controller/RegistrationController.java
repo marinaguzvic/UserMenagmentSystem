@@ -73,7 +73,7 @@ public class RegistrationController {
             } catch (Exception e) {
                 //what if email doesn't go through
                 e.printStackTrace();
-                        
+
                 System.out.println("Email didn't go through");
             }
 
@@ -105,6 +105,23 @@ public class RegistrationController {
 
         account.setEnabled(true);
         accountService.update(account);
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/resendToken")
+    public ModelAndView resendRegistrationToken(WebRequest request, @RequestParam("token") String token) {
+        ModelAndView modelAndView = new ModelAndView("login");
+
+        Locale locale = request.getLocale();
+
+        EmailVerificationTokenDTO emailToken = emailVerificationTokenService.getByToken(token);
+        if (emailToken == null) {
+            String message = messageSource.getMessage("auth.message.invalidToken", null, locale);
+            modelAndView.addObject("message", message);
+        }
+        String appUrl = request.getContextPath();
+        eventPublisher.publishEvent(new RegistrationCompleteEvent(accountService.getRaw(emailToken.getAccount().getId()), Locale.ENGLISH, appUrl));
+
         return modelAndView;
     }
 

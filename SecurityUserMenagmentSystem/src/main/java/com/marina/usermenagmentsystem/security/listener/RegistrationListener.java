@@ -47,6 +47,8 @@ public class RegistrationListener implements ApplicationListener<RegistrationCom
     private void confirmRegistration(RegistrationCompleteEvent e) {
         Account account = e.getAccount();
         String token = UUID.randomUUID().toString();
+        
+        emailVerificationTokenService.deleteByAccount(account.getId());
         // create verification token
         //create service for it?
         emailVerificationTokenService.createVerificationToken(account, token);
