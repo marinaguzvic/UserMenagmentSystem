@@ -26,4 +26,8 @@ public interface AccountService {
     public boolean delete(Long id);
 
     public AccountDTO insert(AccountDTO user);
+
+    public AccountDTO getByEmail(String email);
+
+    public void changeUserPassword(Account account, String password);
 }

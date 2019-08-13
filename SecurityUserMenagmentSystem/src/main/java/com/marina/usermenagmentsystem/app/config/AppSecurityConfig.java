@@ -8,8 +8,10 @@ package com.marina.usermenagmentsystem.app.config;
 import com.marina.usermenagmentsystem.security.database.model.EmailVerificationToken;
 import com.marina.usermenagmentsystem.security.service.AccountService;
 import com.marina.usermenagmentsystem.security.service.EmailVerificationTokenService;
+import com.marina.usermenagmentsystem.security.service.PasswordResetTokenService;
 import com.marina.usermenagmentsystem.security.service.impl.AccountServiceImpl;
 import com.marina.usermenagmentsystem.security.service.impl.EmailVerificationTokenServiceImpl;
+import com.marina.usermenagmentsystem.security.service.impl.PasswordResetTokenServiceImpl;
 import java.util.Properties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -36,6 +38,11 @@ public class AppSecurityConfig {
     @Bean
     public EmailVerificationTokenService emailVerificationTokenService() {
         return new EmailVerificationTokenServiceImpl();
+    }
+    
+    @Bean
+    public PasswordResetTokenService passwordResetTokenService(){
+        return new PasswordResetTokenServiceImpl();
     }
 
     @Bean("javaMailSender")

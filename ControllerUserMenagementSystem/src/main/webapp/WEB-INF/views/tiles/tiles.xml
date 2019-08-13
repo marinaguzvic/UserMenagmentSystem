@@ -111,4 +111,17 @@
         <put-attribute name="title" value="Appache tiles:Home"  cascade="true"/>  
         <put-attribute name="body" value="/WEB-INF/views/pages/registration.jsp" />  
     </definition>   
+    
+        <!-- Forgot password Page -->
+    <definition name="forgotPassword" extends="base-definition">  
+        <put-attribute name="title" value="Appache tiles:Home"  cascade="true"/>  
+        <put-attribute name="body" value="/WEB-INF/views/pages/forgotPassword.jsp" />  
+    </definition>  
+    
+        <!-- Forgot password Page -->
+    <definition name="updatePassword" extends="base-definition">  
+        <put-attribute name="title" value="Appache tiles:Home"  cascade="true"/>  
+        <put-attribute name="body" value="/WEB-INF/views/pages/updatePassword.jsp" />  
+    </definition>  
+
 </tiles-definitions>

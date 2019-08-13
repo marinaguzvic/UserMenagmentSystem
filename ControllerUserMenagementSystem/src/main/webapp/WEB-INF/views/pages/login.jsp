@@ -57,8 +57,8 @@
                 <button type="submit" class="btn btn-primary btn-block">Login</button>
             </form>
             <div class="text-center">
-                <a class="d-block small mt-3" href="register.html">Register an Account</a>
-                <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
+                <a class="d-block small mt-3" href="/usermgmt/registration">Register an Account</a>
+                <a class="d-block small" href="/usermgmt/resetPassword/request">Forgot Password?</a>
             </div>
         </div>
     </div>

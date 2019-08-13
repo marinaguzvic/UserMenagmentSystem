@@ -74,4 +74,16 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.findById(id).get();
     }
 
+    @Override
+    public AccountDTO getByEmail(String email) {
+        Account account = accountRepository.findByUsername(email);
+        return accountMapper.toDtoModel(account);
+    }
+
+    @Override
+    public void changeUserPassword(Account account, String password) {
+        account.setPassword(passwordEncoder.encode(password));
+        accountRepository.save(account);
+    }
+
 }

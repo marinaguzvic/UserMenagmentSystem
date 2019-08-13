@@ -73,6 +73,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration*").permitAll()
                 .antMatchers("/registration/confirm*").permitAll()
                 .antMatchers("/registration/resendToken*").permitAll()
+                .antMatchers("/resetPassword/request*").permitAll() 
+                .antMatchers("/resetPassword*").permitAll() //change permit all with change password privilege
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
