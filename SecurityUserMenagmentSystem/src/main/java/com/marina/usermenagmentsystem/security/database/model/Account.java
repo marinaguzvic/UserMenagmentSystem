@@ -14,6 +14,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.springframework.stereotype.Component;
@@ -49,16 +52,22 @@ public class Account {
     @Column(name = "created", nullable = false)
     private Date created;
     
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account_id")
-//    private List<Authority> authorities = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "accounts_roles",
+            joinColumns = @JoinColumn(
+            name = "account_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+            name = "role_id", referencedColumnName = "id"))
+    private List<Role> roles;
 
-//    public List<Authority> getAuthorities() {
-//        return authorities;
-//    }
-//
-//    public void setAuthorities(List<Authority> authorities) {
-//        this.authorities = authorities;
-//    }
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     public String getFirstName() {
         return firstName;

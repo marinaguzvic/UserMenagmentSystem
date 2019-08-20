@@ -22,12 +22,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 /**
  *
  * @author MARINA
  */
 @Entity
+@Audited
 @Table(name = "document")
 //@XmlRootElement
 //@NamedQueries({
@@ -43,6 +46,7 @@ public class Document implements Serializable {
     private Long documentId;
     @Column(name = "document_name")
     private String documentName;
+    @NotAudited
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "document")
     private List<DocumentField> documentFieldList;
 

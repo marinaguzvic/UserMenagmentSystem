@@ -6,10 +6,13 @@
 package com.marina.usermenagmentsystem.security.service.impl;
 
 import com.marina.usermenagmentsystem.security.database.AccountRepository;
+import com.marina.usermenagmentsystem.security.database.RoleRepository;
 import com.marina.usermenagmentsystem.security.database.model.Account;
+import com.marina.usermenagmentsystem.security.database.model.Role;
 import com.marina.usermenagmentsystem.security.database.model.dto.AccountDTO;
 import com.marina.usermenagmentsystem.security.service.mapper.AccountMapper;
 import com.marina.usermenagmentsystem.security.service.AccountService;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,9 @@ public class AccountServiceImpl implements AccountService {
     
     @Autowired
     PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    RoleRepository roleRepository;
 
     @Override
     public List<AccountDTO> getAll() {
@@ -66,6 +72,9 @@ public class AccountServiceImpl implements AccountService {
         account.setEnabled(false);
         account.setCreated(new Date());
         account.setPassword(passwordEncoder.encode(account.getPassword()));
+        Role role = roleRepository.findByName("ROLE_USER");
+        role.getAccounts().add(account);
+        account.setRoles(Arrays.asList(role));
         return accountMapper.toDtoModel(accountRepository.save(account));
     }
 

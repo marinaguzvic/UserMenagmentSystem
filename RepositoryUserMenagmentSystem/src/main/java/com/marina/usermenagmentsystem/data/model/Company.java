@@ -18,12 +18,15 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 /**
  *
  * @author MARINA
  */
 @Entity
+@Audited
 @Table(name = "company")
 //@XmlRootElement
 //@NamedQueries({
@@ -40,6 +43,7 @@ public class Company implements Serializable {
     private Long companyId;
     @Column(name = "company_name")
     private String companyName;
+    @NotAudited
     @OneToMany(mappedBy = "companyIdFk")
     private List<Position> positions;
 

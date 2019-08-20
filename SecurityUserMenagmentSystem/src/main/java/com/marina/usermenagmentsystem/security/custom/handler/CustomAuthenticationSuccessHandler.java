@@ -9,6 +9,7 @@ import com.marina.usermenagmentsystem.security.database.AccountRepository;
 import com.marina.usermenagmentsystem.security.database.PersistentLoginsRepository;
 import com.marina.usermenagmentsystem.security.database.model.Account;
 import com.marina.usermenagmentsystem.security.database.model.PersistentLogins;
+import com.marina.usermenagmentsystem.security.database.model.Role;
 import com.marina.usermenagmentsystem.security.service.AccountService;
 import java.io.IOException;
 import java.util.Collection;
@@ -79,9 +80,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         }
  
         if (isUser) {
-            return "/homepage.html";
+            return "/home";
         } else if (isAdmin) {
-            return "/console.html";
+            return "/users";
         } else {
             throw new IllegalStateException();
         }

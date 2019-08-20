@@ -24,12 +24,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 /**
  *
  * @author MARINA
  */
 @Entity
+@Audited
 @Table(name = "template")
 //@XmlRootElement
 //@NamedQueries({
@@ -54,6 +57,7 @@ public class Template implements Serializable {
     @Column(name = "template_file_name")
     private String templateFileName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "template")
+    @NotAudited
     private List<TemplateField> templateFieldList;
 
 

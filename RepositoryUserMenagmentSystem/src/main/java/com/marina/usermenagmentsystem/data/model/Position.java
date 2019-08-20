@@ -22,12 +22,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.envers.Audited;
 
 /**
  *
  * @author MARINA
  */
 @Entity
+@Audited
 @Table(name = "position")
 //@XmlRootElement
 //@NamedQueries({
