@@ -5,17 +5,25 @@
  */
 package com.marina.usermenagmentsystem.security.config;
 
+import com.marina.usermenagmentsystem.security.authorization.voter.ActionObjectVoter;
 import com.marina.usermenagmentsystem.security.custom.handler.CustomAuthenticationFailureHandler;
 import com.marina.usermenagmentsystem.security.custom.handler.CustomAuthenticationSuccessHandler;
 import com.marina.usermenagmentsystem.security.custom.handler.CustomLogoutSuccessHandler;
 import com.marina.usermenagmentsystem.security.service.impl.UserDetailsServiceImp;
 import com.marina.usermenagmentsystem.security.token.PersistentLoginsTokenRepositoryImp;
+import java.util.ArrayList;
+import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.vote.AuthenticatedVoter;
+import org.springframework.security.access.vote.RoleVoter;
+import org.springframework.security.access.vote.UnanimousBased;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -25,6 +33,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -46,6 +55,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    @Qualifier("persistentTokenRepository")
 //    private PersistentTokenRepository persistentTokenRepository;
 
+    @Autowired
+    ActionObjectVoter actionObjectVoter;
+            
     
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -75,7 +87,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration/resendToken*").permitAll()
                 .antMatchers("/resetPassword/request*").permitAll() 
                 .antMatchers("/resetPassword*").permitAll() //change permit all with change password privilege
-                .anyRequest().authenticated()
+                .anyRequest().authenticated().accessDecisionManager(unanimous())
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -128,5 +140,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PersistentTokenRepository persistentTokenRepository(){
         
         return new PersistentLoginsTokenRepositoryImp();
+    }
+    
+    @Bean
+    public AccessDecisionManager unanimous(){
+        List<AccessDecisionVoter<? extends Object>> decisionVoters = new ArrayList<>();
+        decisionVoters.add(new RoleVoter());
+        decisionVoters.add(new AuthenticatedVoter());
+        decisionVoters.add(new WebExpressionVoter());
+        decisionVoters.add(actionObjectVoter);
+        return new UnanimousBased(decisionVoters);
     }
 }

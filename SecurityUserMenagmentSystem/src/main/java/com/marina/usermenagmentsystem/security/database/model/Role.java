@@ -30,6 +30,18 @@ public class Role {
 
     @Column(name = "name")
     private String name;
+    
+    @Column(name = "success_landing_url")
+    private String successLandingUrl;
+
+    public String getSuccessLandingUrl() {
+        return successLandingUrl;
+    }
+
+    public void setSuccessLandingUrl(String successLandingUrl) {
+        this.successLandingUrl = successLandingUrl;
+    }
+   
 
     @ManyToMany(mappedBy = "roles")
     private List<Account> accounts;

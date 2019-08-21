@@ -7,6 +7,7 @@ package com.marina.usermenagmentsystem.security.custom.handler;
 
 import com.marina.usermenagmentsystem.security.database.AccountRepository;
 import com.marina.usermenagmentsystem.security.database.PersistentLoginsRepository;
+import com.marina.usermenagmentsystem.security.database.RoleRepository;
 import com.marina.usermenagmentsystem.security.database.model.Account;
 import com.marina.usermenagmentsystem.security.database.model.PersistentLogins;
 import com.marina.usermenagmentsystem.security.database.model.Role;
@@ -31,63 +32,58 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  *
  * @author MARINA
  */
-public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
+public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+
     protected Log logger = LogFactory.getLog(this.getClass());
- 
+
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-    
+
     @Autowired
     AccountService accountService;
- 
+
+    @Autowired
+    RoleRepository roleRepository;
+
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, 
-      HttpServletResponse response, Authentication authentication)
-      throws IOException {
+    public void onAuthenticationSuccess(HttpServletRequest request,
+            HttpServletResponse response, Authentication authentication)
+            throws IOException {
 
         handle(request, response, authentication);
         clearAuthenticationAttributes(request);
     }
- 
-    protected void handle(HttpServletRequest request, 
-      HttpServletResponse response, Authentication authentication)
-      throws IOException {
-  
+
+    protected void handle(HttpServletRequest request,
+            HttpServletResponse response, Authentication authentication)
+            throws IOException {
+
         String targetUrl = determineTargetUrl(authentication);
- 
+
         if (response.isCommitted()) {
             logger.debug(
-              "Response has already been committed. Unable to redirect to "
-              + targetUrl);
+                    "Response has already been committed. Unable to redirect to "
+                    + targetUrl);
             return;
         }
- 
+
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
- 
+
     protected String determineTargetUrl(Authentication authentication) {
-        boolean isUser = false;
-        boolean isAdmin = false;
+
         Collection<? extends GrantedAuthority> authorities
-         = authentication.getAuthorities();
+                = authentication.getAuthorities();
+
         for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
-                isUser = true;
-                break;
-            } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
-                isAdmin = true;
-                break;
+            String url = roleRepository.findByName(grantedAuthority.getAuthority()).getSuccessLandingUrl();
+            if (url != null) {
+                return url;
             }
         }
- 
-        if (isUser) {
-            return "/home";
-        } else if (isAdmin) {
-            return "/users";
-        } else {
-            throw new IllegalStateException();
-        }
+
+        throw new IllegalStateException();
     }
- 
+
     protected void clearAuthenticationAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
@@ -95,10 +91,11 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         }
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
     }
- 
+
     public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
         this.redirectStrategy = redirectStrategy;
     }
+
     protected RedirectStrategy getRedirectStrategy() {
         return redirectStrategy;
     }

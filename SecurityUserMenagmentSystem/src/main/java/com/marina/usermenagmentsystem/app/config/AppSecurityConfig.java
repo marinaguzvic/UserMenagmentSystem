@@ -27,7 +27,8 @@ import org.springframework.stereotype.Component;
 @Configuration
 @ComponentScan(basePackages = {
     "com.marina.usermenagmentsystem.security.service",
-    "com.marina.usermenagmentsystem.security.service.mapper"})
+    "com.marina.usermenagmentsystem.security.service.mapper",
+    "com.marina.usermenagmentsystem.security.authorization.voter"})
 public class AppSecurityConfig {
 
     @Bean
@@ -39,9 +40,9 @@ public class AppSecurityConfig {
     public EmailVerificationTokenService emailVerificationTokenService() {
         return new EmailVerificationTokenServiceImpl();
     }
-    
+
     @Bean
-    public PasswordResetTokenService passwordResetTokenService(){
+    public PasswordResetTokenService passwordResetTokenService() {
         return new PasswordResetTokenServiceImpl();
     }
 
