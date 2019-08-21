@@ -5,6 +5,8 @@
  */
 package com.marina.usermenagmentsystem.app.config;
 
+import com.marina.usermenagmentsystem.security.app.Security;
+import com.marina.usermenagmentsystem.security.app.imp.SecurityImp;
 import com.marina.usermenagmentsystem.security.database.model.EmailVerificationToken;
 import com.marina.usermenagmentsystem.security.service.AccountService;
 import com.marina.usermenagmentsystem.security.service.EmailVerificationTokenService;
@@ -63,5 +65,10 @@ public class AppSecurityConfig {
         props.put("mail.debug", "true");
 
         return mailSender;
+    }
+    
+    @Bean
+    public Security security(){
+        return new SecurityImp();
     }
 }

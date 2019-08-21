@@ -47,7 +47,8 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
     "com.marina.usermenagmentsystem.security.controller",
     "com.marina.usermenagmentsystem.security.service",
     "com.marina.usermenagmentsystem.security.listener",
-    "com.marina.usermenagmentsystem.security.event"
+    "com.marina.usermenagmentsystem.security.event",
+    "com.marina.usermenagmentsystem.data.listener"
 })
 public class ApplicationConfig {
 
