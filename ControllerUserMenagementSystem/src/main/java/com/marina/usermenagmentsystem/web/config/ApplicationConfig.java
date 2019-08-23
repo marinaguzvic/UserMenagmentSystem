@@ -5,6 +5,9 @@
  */
 package com.marina.usermenagmentsystem.web.config;
 
+import com.marina.usermenagmentsystem.data.audit.repository.AuditRepository;
+import com.marina.usermenagmentsystem.data.audit.repository.impl.DocumentAuditRepositoryImpl;
+import com.marina.usermenagmentsystem.service.AuditService;
 import com.marina.usermenagmentsystem.service.CompanyService;
 import com.marina.usermenagmentsystem.service.DocumentFieldService;
 import com.marina.usermenagmentsystem.service.DocumentService;
@@ -22,6 +25,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import com.marina.usermenagmentsystem.service.PersonService;
+import com.marina.usermenagmentsystem.service.impl.AuditServiceImpl;
 import java.util.Locale;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -48,7 +52,9 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
     "com.marina.usermenagmentsystem.security.service",
     "com.marina.usermenagmentsystem.security.listener",
     "com.marina.usermenagmentsystem.security.event",
-    "com.marina.usermenagmentsystem.data.listener"
+    "com.marina.usermenagmentsystem.data.listener",
+    "com.marina.usermenagmentsystem.data.audit.repository",
+    "com.marina.usermenagmentsystem.data.audit.repository.impl"
 })
 public class ApplicationConfig {
 
@@ -110,7 +116,12 @@ public class ApplicationConfig {
         cookieLocaleResolver.setDefaultLocale(Locale.ENGLISH);
         return cookieLocaleResolver;
     }
+    
 
+    @Bean
+    public AuditService auditService(){
+        return new AuditServiceImpl();
+    }
 //    @Bean
 //    public StandardServletMultipartResolver multipartResolver() {
 //        return new StandardServletMultipartResolver();

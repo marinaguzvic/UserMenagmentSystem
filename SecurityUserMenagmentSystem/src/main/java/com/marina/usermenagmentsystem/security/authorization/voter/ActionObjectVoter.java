@@ -5,6 +5,7 @@
  */
 package com.marina.usermenagmentsystem.security.authorization.voter;
 
+import com.marina.usermenagmentsystem.security.app.ReadAuditInfo;
 import com.marina.usermenagmentsystem.security.database.AccountRepository;
 import com.marina.usermenagmentsystem.security.database.UrlActionObjectMappingRepository;
 import com.marina.usermenagmentsystem.security.database.model.Account;
@@ -31,6 +32,9 @@ public class ActionObjectVoter implements AccessDecisionVoter<Object> {
     
     @Autowired
     public AccountRepository accountRepository;
+    
+    @Autowired
+    public ReadAuditInfo auditInfo;
 
     @Override
     public boolean supports(ConfigAttribute ca) {
@@ -57,7 +61,14 @@ public class ActionObjectVoter implements AccessDecisionVoter<Object> {
                         || privilege.getActionPrivilege().getName().equalsIgnoreCase("ANY_PRIVILEGE"))
                         && (privilege.getObjectPrivilege().equals(mapping.getObjectPrivilege())
                         || privilege.getObjectPrivilege().getName().equalsIgnoreCase("ANY"))){
-                    return ACCESS_GRANTED;
+                    if(privilege.isIfCreated()){
+                        if(auditInfo.hasCreatedEntity(url, account.getUsername(), mapping.getObjectPrivilege().getName())){
+                            return ACCESS_GRANTED;
+                        }else{
+                            return ACCESS_DENIED;
+                        }
+                       
+                    }else return ACCESS_GRANTED;
                 }
             }
         }
@@ -65,7 +76,7 @@ public class ActionObjectVoter implements AccessDecisionVoter<Object> {
     }
 
     public String convertSpecificToGeneralUrl(String url){
-        String newUrl = url.replaceAll("/\\d+/", "/{id}/");
+        String newUrl = url.replaceAll("\\d+", "{id}");
         System.out.println(newUrl);
         return newUrl;
     }

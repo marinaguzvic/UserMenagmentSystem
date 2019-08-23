@@ -17,7 +17,8 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages = {
     "com.marina.usermenagmentsystem.service",
     "com.marina.usermenagmentsystem.data.model",
-    "com.marina.usermenagmentsystem.data.repository"
+    "com.marina.usermenagmentsystem.data.repository",
+    "com.marina.usermenagmentsystem.data.audit.repository"
 })
 public class SpringTestConfig {
     
